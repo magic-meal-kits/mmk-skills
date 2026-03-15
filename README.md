@@ -1,12 +1,6 @@
-```
-                    __                 __   __ __ __
-   ____ ___  ____ _/ /_____           / /  / //_// /_  _____
-  / __ `__ \/ __ `/ //_/ _ \  ____  / /  / ,<  / / / / / ___/
- / / / / / / /_/ / ,< /  __/ /___/ / /__/ /| |/ / /_/ (__  )
-/_/ /_/ /_/\__,_/_/|_|\___/       /____/_/ |_/_/\__,_/____/
-
-    MMK Skills for Claude Code
-```
+<p align="center">
+  <img src="assets/banner.png" alt="Magic Meal Kits — automate the impossible" width="700">
+</p>
 
 # MMK Skills
 
@@ -24,14 +18,16 @@ mmk auth login
 
 ### 2. Install Skills
 
-Copy the `.claude/skills/` directory into your project:
-
 ```bash
-# From this repo
-cp -r .claude/skills/ /path/to/your-project/.claude/skills/
-```
+# Install all skills at once
+npx skills add https://github.com/magic-meal-kits/mmk-skills
 
-Or add this repo's `.claude/skills/` to your project's skill path.
+# Or pick only what you need
+npx skills add https://github.com/magic-meal-kits/mmk-skills/tree/main/mmk-notion
+npx skills add https://github.com/magic-meal-kits/mmk-skills/tree/main/mmk-paymint
+npx skills add https://github.com/magic-meal-kits/mmk-skills/tree/main/mmk-threads
+npx skills add https://github.com/magic-meal-kits/mmk-skills/tree/main/mmk-youtube
+```
 
 ### 3. Use
 
