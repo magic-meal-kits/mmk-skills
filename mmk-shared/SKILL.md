@@ -67,9 +67,9 @@ If commands return authentication errors:
 ## Command Reference
 
 Top-level commands available via `mmk`:
-- `mmk notion` — Notion page, workspace, team, people, database, meeting management
-- `mmk paymint` — Payment/invoice management
-- `mmk threads` — Threads account data (posts, insights, replies)
-- `mmk youtube` — YouTube tools (transcript, metadata, video type)
+- [`mmk notion`](../mmk-notion/SKILL.md) — Notion page, workspace, team, people, database, meeting management (19 commands)
+- [`mmk paymint`](../mmk-paymint/SKILL.md) — Payment/invoice management (5 commands)
+- [`mmk threads`](../mmk-threads/SKILL.md) — Threads account data: posts, insights, replies (3 commands)
+- [`mmk youtube`](../mmk-youtube/SKILL.md) — YouTube tools: transcript, metadata, video type (3 commands)
 - `mmk auth` — Authentication
 - `mmk config` — CLI configuration

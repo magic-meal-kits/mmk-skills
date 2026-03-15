@@ -25,11 +25,17 @@ mmk auth login
 # Install all skills at once
 npx skills add https://github.com/magic-meal-kits/mmk-skills
 
-# Or pick only what you need
+# Or install by service (root + all sub-commands)
 npx skills add https://github.com/magic-meal-kits/mmk-skills/tree/main/mmk-notion
 npx skills add https://github.com/magic-meal-kits/mmk-skills/tree/main/mmk-paymint
 npx skills add https://github.com/magic-meal-kits/mmk-skills/tree/main/mmk-threads
 npx skills add https://github.com/magic-meal-kits/mmk-skills/tree/main/mmk-youtube
+
+# Or install individual sub-commands only
+npx skills add https://github.com/magic-meal-kits/mmk-skills/tree/main/mmk-notion-page
+npx skills add https://github.com/magic-meal-kits/mmk-skills/tree/main/mmk-paymint-send
+npx skills add https://github.com/magic-meal-kits/mmk-skills/tree/main/mmk-threads-posts
+npx skills add https://github.com/magic-meal-kits/mmk-skills/tree/main/mmk-youtube-transcript
 ```
 
 ### 3. Use
@@ -37,11 +43,29 @@ npx skills add https://github.com/magic-meal-kits/mmk-skills/tree/main/mmk-youtu
 Type `/` in Claude Code to see available skills:
 
 ```
-/mmk-notion     — Notion page, workspace, team, people, database, meeting management
-/mmk-paymint    — Payment invoice management
-/mmk-threads    — Threads posts, insights, and replies
-/mmk-youtube    — YouTube metadata, transcripts, and video type
-/mmk-notion-onboard — Invite to Notion with Gmail fallback
+/mmk-notion             — Notion commands overview (links to sub-commands)
+/mmk-notion-page        — Page invite, revoke, publish, config, duplicate (8 commands)
+/mmk-notion-workspace   — Workspace invite and remove (2 commands)
+/mmk-notion-team        — Team list, invite, remove (3 commands)
+/mmk-notion-subscription — Subscription details (1 command)
+/mmk-notion-people      — List members/guests, guest pages (2 commands)
+/mmk-notion-database    — Schema, AI summary (2 commands)
+/mmk-notion-meeting     — AI meeting notes (1 command)
+/mmk-paymint            — Paymint overview + license resolution + errors
+/mmk-paymint-licenses   — List licenses
+/mmk-paymint-send       — Send invoice
+/mmk-paymint-status     — Check invoice status
+/mmk-paymint-cancel     — Cancel/refund invoice
+/mmk-paymint-resend     — Resend invoice SMS
+/mmk-threads            — Threads overview + pagination
+/mmk-threads-posts      — Get recent posts
+/mmk-threads-insights   — Account analytics
+/mmk-threads-replies    — Post replies/conversation
+/mmk-youtube            — YouTube overview + positional arg note
+/mmk-youtube-metadata   — Video metadata
+/mmk-youtube-videotype  — Video vs Short
+/mmk-youtube-transcript — Video transcript
+/mmk-notion-onboard     — Invite to Notion with Gmail fallback (recipe)
 ```
 
 ## Skill Inventory
@@ -49,25 +73,67 @@ Type `/` in Claude Code to see available skills:
 | Skill | Type | Trigger | Commands |
 |-------|------|---------|----------|
 | `mmk-shared` | Background | Auto-loaded | Foundation: auth, flags, errors |
-| `mmk-notion` | Core | `/mmk-notion` | 22 commands across page, workspace, team, people, database, meeting |
-| `mmk-paymint` | Core | `/mmk-paymint` | 5 commands: licenses, send, status, cancel, resend |
-| `mmk-threads` | Core | `/mmk-threads` | 3 commands: posts, insights, replies |
-| `mmk-youtube` | Core | `/mmk-youtube` | 3 commands: metadata, videotype, transcript |
+| **Notion** | | | |
+| `mmk-notion` | Root | `/mmk-notion` | Overview + sub-command links (19 commands total) |
+| `mmk-notion-page` | Sub-command | `/mmk-notion-page` | invite, revoke, publish, unpublish, config, publish-settings, duplicate, list-published |
+| `mmk-notion-workspace` | Sub-command | `/mmk-notion-workspace` | invite, remove |
+| `mmk-notion-team` | Sub-command | `/mmk-notion-team` | list, invite, remove |
+| `mmk-notion-subscription` | Sub-command | `/mmk-notion-subscription` | subscription |
+| `mmk-notion-people` | Sub-command | `/mmk-notion-people` | list, guest-pages |
+| `mmk-notion-database` | Sub-command | `/mmk-notion-database` | schema, ai-summary |
+| `mmk-notion-meeting` | Sub-command | `/mmk-notion-meeting` | list |
+| **Paymint** | | | |
+| `mmk-paymint` | Root | `/mmk-paymint` | Overview + license resolution + errors (5 commands total) |
+| `mmk-paymint-licenses` | Sub-command | `/mmk-paymint-licenses` | licenses |
+| `mmk-paymint-send` | Sub-command | `/mmk-paymint-send` | send |
+| `mmk-paymint-status` | Sub-command | `/mmk-paymint-status` | status |
+| `mmk-paymint-cancel` | Sub-command | `/mmk-paymint-cancel` | cancel |
+| `mmk-paymint-resend` | Sub-command | `/mmk-paymint-resend` | resend |
+| **Threads** | | | |
+| `mmk-threads` | Root | `/mmk-threads` | Overview + pagination (3 commands total) |
+| `mmk-threads-posts` | Sub-command | `/mmk-threads-posts` | posts |
+| `mmk-threads-insights` | Sub-command | `/mmk-threads-insights` | insights |
+| `mmk-threads-replies` | Sub-command | `/mmk-threads-replies` | replies |
+| **YouTube** | | | |
+| `mmk-youtube` | Root | `/mmk-youtube` | Overview + positional arg note (3 commands total) |
+| `mmk-youtube-metadata` | Sub-command | `/mmk-youtube-metadata` | metadata |
+| `mmk-youtube-videotype` | Sub-command | `/mmk-youtube-videotype` | videotype |
+| `mmk-youtube-transcript` | Sub-command | `/mmk-youtube-transcript` | transcript |
+| **Recipes** | | | |
 | `mmk-notion-onboard` | Recipe | Manual only | Multi-step: Notion invite + Gmail signup fallback |
 
 ### Architecture
 
 ```
-mmk-shared (background)          <- Foundation: auth, flags, errors
-├── mmk-notion (core)            <- 22 Notion commands
-├── mmk-paymint (core)           <- 5 Paymint commands
-├── mmk-threads (core)           <- 3 Threads commands
-├── mmk-youtube (core)           <- 3 YouTube commands
-└── mmk-notion-onboard (recipe)
+mmk-shared (background)              <- Foundation: auth, flags, errors
+├── mmk-notion (root)                <- Overview + tips (19 commands)
+│   ├── mmk-notion-page              <- 8 page commands
+│   ├── mmk-notion-workspace         <- 2 workspace commands
+│   ├── mmk-notion-team              <- 3 team commands
+│   ├── mmk-notion-subscription      <- 1 subscription command
+│   ├── mmk-notion-people            <- 2 people commands
+│   ├── mmk-notion-database          <- 2 database commands
+│   └── mmk-notion-meeting           <- 1 meeting command
+├── mmk-paymint (root)               <- Overview + license resolution + errors (5 commands)
+│   ├── mmk-paymint-licenses         <- List licenses
+│   ├── mmk-paymint-send             <- Send invoice
+│   ├── mmk-paymint-status           <- Check status
+│   ├── mmk-paymint-cancel           <- Cancel/refund
+│   └── mmk-paymint-resend           <- Resend SMS
+├── mmk-threads (root)               <- Overview + pagination (3 commands)
+│   ├── mmk-threads-posts            <- Get posts
+│   ├── mmk-threads-insights         <- Account analytics
+│   └── mmk-threads-replies          <- Post replies
+├── mmk-youtube (root)               <- Overview + positional args (3 commands)
+│   ├── mmk-youtube-metadata         <- Video metadata
+│   ├── mmk-youtube-videotype        <- Video vs Short
+│   └── mmk-youtube-transcript       <- Video transcript
+└── mmk-notion-onboard (recipe)      <- Notion invite + Gmail fallback
 ```
 
 - **Background skills** load automatically when relevant context is detected
-- **Core skills** are user-invocable via `/` commands, scoped to `Bash(mmk *)`
+- **Root skills** provide overview, shared guidance, and links to sub-command skills
+- **Sub-command skills** are independently installable and contain focused command docs
 - **Recipe skills** require manual invocation (`disable-model-invocation: true`) because they have side effects
 
 ## Usage Examples
@@ -75,28 +141,28 @@ mmk-shared (background)          <- Foundation: auth, flags, errors
 ### Notion: Invite a user to a page
 
 ```
-/mmk-notion
+/mmk-notion-page
 > Invite kim@example.com as editor to https://notion.so/my-page-abc123
 ```
 
 ### Paymint: Send an invoice
 
 ```
-/mmk-paymint
+/mmk-paymint-send
 > Send a 50,000 KRW invoice to 01012345678 for "Workshop Fee", name "Kim", message "March workshop", expiring 2026-04-01
 ```
 
 ### Threads: Check recent posts with engagement
 
 ```
-/mmk-threads
+/mmk-threads-posts
 > Show my last 10 posts with engagement metrics
 ```
 
 ### YouTube: Get a transcript
 
 ```
-/mmk-youtube
+/mmk-youtube-transcript
 > Get the transcript for https://youtube.com/watch?v=abc123
 ```
 

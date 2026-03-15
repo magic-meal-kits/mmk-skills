@@ -6,9 +6,21 @@ allowed-tools: Bash(mmk *)
 
 # MMK Paymint
 
+> **Prerequisite:** Read [`../mmk-shared/SKILL.md`](../mmk-shared/SKILL.md) for auth, global flags, and error handling.
+
 Manage payment invoices using the `mmk` CLI.
 
 Always use `-o json` when parsing results or composing with other commands.
+
+## Sub-Command Skills
+
+| Sub-command | Description | Skill |
+|-------------|-------------|-------|
+| `licenses` | List approved Paymint licenses | [`mmk-paymint-licenses`](../mmk-paymint-licenses/SKILL.md) |
+| `send` | Send payment invoice | [`mmk-paymint-send`](../mmk-paymint-send/SKILL.md) |
+| `status` | Check invoice status | [`mmk-paymint-status`](../mmk-paymint-status/SKILL.md) |
+| `cancel` | Cancel/refund invoice | [`mmk-paymint-cancel`](../mmk-paymint-cancel/SKILL.md) |
+| `resend` | Resend invoice SMS | [`mmk-paymint-resend`](../mmk-paymint-resend/SKILL.md) |
 
 ## License Resolution
 
@@ -18,56 +30,6 @@ All commands except `licenses` resolve a Paymint license automatically:
 - Accepts: full business number, member ID, or masked number match (e.g., `305-**-***47` matches `305-95-87247`)
 
 Run `mmk paymint licenses` first to see available licenses.
-
----
-
-## Commands
-
-### licenses — List approved Paymint licenses
-
-```bash
-mmk paymint licenses -o json
-```
-
-No flags required.
-
-### send — Send payment invoice
-
-```bash
-mmk paymint send --phone 01012345678 --amount 10000 --product "Monthly Fee" --name "John" --message "Payment due" --expire 2026-04-01 -o json
-```
-
-**Required:** `--phone`, `--amount`, `--product`, `--name`, `--message`, `--expire` (YYYY-MM-DD)
-**Optional:** `--business-number` (required if multiple licenses exist)
-
-### status — Check invoice status
-
-```bash
-mmk paymint status --tid TID123 -o json
-```
-
-**Required:** `--tid` (transaction/bill ID)
-**Optional:** `--business-number`
-
-### cancel — Cancel/refund invoice
-
-```bash
-mmk paymint cancel --tid TID123 --amount 10000 -o json
-```
-
-**Required:** `--tid`, `--amount` (refund amount)
-**Optional:** `--business-number`
-
-### resend — Resend invoice SMS
-
-```bash
-mmk paymint resend --tid TID123 -o json
-```
-
-**Required:** `--tid`
-**Optional:** `--business-number`
-
----
 
 ## Error Patterns
 

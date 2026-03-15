@@ -7,6 +7,9 @@ allowed-tools: Bash(mmk *), Bash(gws *)
 
 # Recipe: Notion Invite with Gmail Fallback
 
+> **Prerequisite:** Read [`../mmk-shared/SKILL.md`](../mmk-shared/SKILL.md) for auth, global flags, and error handling.
+> Uses: [`mmk-notion-page`](../mmk-notion-page/SKILL.md) — Page invite command.
+
 A multi-step workflow that invites a user to a Notion page, and if they don't have a Notion account, sends them a signup email via Gmail.
 
 **This recipe has side effects** (sends real emails). It requires manual invocation only.
