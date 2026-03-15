@@ -38,7 +38,7 @@ Type `/` in Claude Code to see available skills:
 /mmk-paymint    — Payment invoice management
 /mmk-threads    — Threads posts, insights, and replies
 /mmk-youtube    — YouTube metadata, transcripts, and video type
-/recipe-notion-invite-with-fallback — Invite to Notion with Gmail fallback
+/mmk-notion-onboard — Invite to Notion with Gmail fallback
 ```
 
 ## Skill Inventory
@@ -50,7 +50,7 @@ Type `/` in Claude Code to see available skills:
 | `mmk-paymint` | Core | `/mmk-paymint` | 5 commands: licenses, send, status, cancel, resend |
 | `mmk-threads` | Core | `/mmk-threads` | 3 commands: posts, insights, replies |
 | `mmk-youtube` | Core | `/mmk-youtube` | 3 commands: metadata, videotype, transcript |
-| `recipe-notion-invite-with-fallback` | Recipe | Manual only | Multi-step: Notion invite + Gmail signup fallback |
+| `mmk-notion-onboard` | Recipe | Manual only | Multi-step: Notion invite + Gmail signup fallback |
 
 ### Architecture
 
@@ -60,7 +60,7 @@ mmk-shared (background)          <- Foundation: auth, flags, errors
 ├── mmk-paymint (core)           <- 5 Paymint commands
 ├── mmk-threads (core)           <- 3 Threads commands
 ├── mmk-youtube (core)           <- 3 YouTube commands
-└── recipe-notion-invite-with-fallback (recipe)
+└── mmk-notion-onboard (recipe)
 ```
 
 - **Background skills** load automatically when relevant context is detected
@@ -99,7 +99,7 @@ mmk-shared (background)          <- Foundation: auth, flags, errors
 
 ## Compatibility
 
-These skills work alongside [GWS Skills](https://github.com/pureugong/gws) (Google Workspace CLI). The `recipe-notion-invite-with-fallback` skill composes both `mmk` and `gws` commands.
+These skills work alongside [GWS Skills](https://github.com/pureugong/gws) (Google Workspace CLI). The `mmk-notion-onboard` skill composes both `mmk` and `gws` commands.
 
 ## Requirements
 

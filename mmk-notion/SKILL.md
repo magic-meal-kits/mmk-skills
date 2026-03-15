@@ -230,4 +230,4 @@ mmk notion meeting list --timezone Asia/Seoul --limit 50 -o json
 1. `--block-id` accepts both raw UUIDs and full Notion URLs — the CLI extracts the ID automatically
 2. For bulk operations, run commands sequentially and check each result
 3. Always use `-o json` for reliable parsing in scripts and skill compositions
-4. Page invite errors for non-Notion users indicate the email is not associated with a Notion account — consider using the `/recipe-notion-invite-with-fallback` skill for automatic email fallback
+4. Page invite errors for non-Notion users indicate the email is not associated with a Notion account — consider using the `/mmk-notion-onboard` skill for automatic email fallback

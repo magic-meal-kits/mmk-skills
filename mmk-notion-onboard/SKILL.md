@@ -1,5 +1,5 @@
 ---
-name: recipe-notion-invite-with-fallback
+name: mmk-notion-onboard
 description: This skill should be used when the user asks to "invite someone to Notion with email fallback", "invite and send signup email if not a Notion user", "onboard a user to a Notion page", or wants a workflow that tries Notion invite first and falls back to sending a Gmail signup invitation if the user doesn't have a Notion account.
 disable-model-invocation: true
 allowed-tools: Bash(mmk *), Bash(gws *)
@@ -84,7 +84,7 @@ If the user confirms retry later, go back to Step 1.
 ## Example Session
 
 ```
-User: /recipe-notion-invite-with-fallback
+User: /mmk-notion-onboard
 
 Claude: Who would you like to invite?
 
