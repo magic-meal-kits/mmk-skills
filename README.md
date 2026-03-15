@@ -66,6 +66,7 @@ Type `/` in Claude Code to see available skills:
 /mmk-youtube-videotype  — Video vs Short
 /mmk-youtube-transcript — Video transcript
 /mmk-notion-onboard     — Invite to Notion with Gmail fallback (recipe)
+/mmk-notion-database-ai-summary — Bulk AI summary across database pages (recipe)
 ```
 
 ## Skill Inventory
@@ -101,6 +102,7 @@ Type `/` in Claude Code to see available skills:
 | `mmk-youtube-transcript` | Sub-command | `/mmk-youtube-transcript` | transcript |
 | **Recipes** | | | |
 | `mmk-notion-onboard` | Recipe | Manual only | Multi-step: Notion invite + Gmail signup fallback |
+| `mmk-notion-database-ai-summary` | Recipe | Manual only | Multi-step: Discover AI config + batch summary generation |
 
 ### Architecture
 
@@ -128,7 +130,8 @@ mmk-shared (background)              <- Foundation: auth, flags, errors
 │   ├── mmk-youtube-metadata         <- Video metadata
 │   ├── mmk-youtube-videotype        <- Video vs Short
 │   └── mmk-youtube-transcript       <- Video transcript
-└── mmk-notion-onboard (recipe)      <- Notion invite + Gmail fallback
+├── mmk-notion-onboard (recipe)      <- Notion invite + Gmail fallback
+└── mmk-notion-database-ai-summary (recipe) <- Bulk AI summary for database
 ```
 
 - **Background skills** load automatically when relevant context is detected
