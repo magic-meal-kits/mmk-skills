@@ -2,6 +2,9 @@
   <img src="assets/banner.png" alt="Magic Meal Kits — automate the impossible" width="700">
 </p>
 
+> [!WARNING]
+> This project is in **beta**. Skills, command signatures, and installation methods may change without notice.
+
 # MMK Skills
 
 Claude Code skills for automating [Magic Meal Kits](https://magicmealkits.com) CLI operations. Covers Notion, Paymint, Threads, and YouTube — all accessible via `/` commands in Claude Code.
