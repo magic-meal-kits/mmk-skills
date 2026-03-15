@@ -21,6 +21,8 @@ mmk auth login
 
 ### 2. Install Skills
 
+Works with Claude Code, OpenCode, Codex, Cursor, and [38+ agents](https://github.com/nichochar/skills). Powered by Vercel Labs [`skills`](https://github.com/nichochar/skills) CLI.
+
 ```bash
 # Install all skills at once
 npx skills add https://github.com/magic-meal-kits/mmk-skills
