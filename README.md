@@ -28,16 +28,22 @@ Works with Claude Code, OpenCode, Codex, Cursor, and [38+ agents](https://github
 npx skills add https://github.com/magic-meal-kits/mmk-skills
 
 # Or install by service (root + all sub-commands)
-npx skills add https://github.com/magic-meal-kits/mmk-skills/tree/main/mmk-notion
-npx skills add https://github.com/magic-meal-kits/mmk-skills/tree/main/mmk-paymint
-npx skills add https://github.com/magic-meal-kits/mmk-skills/tree/main/mmk-threads
-npx skills add https://github.com/magic-meal-kits/mmk-skills/tree/main/mmk-youtube
+npx skills add https://github.com/magic-meal-kits/mmk-skills/tree/main/skills/mmk-notion
+npx skills add https://github.com/magic-meal-kits/mmk-skills/tree/main/skills/mmk-paymint
+npx skills add https://github.com/magic-meal-kits/mmk-skills/tree/main/skills/mmk-threads
+npx skills add https://github.com/magic-meal-kits/mmk-skills/tree/main/skills/mmk-youtube
 
 # Or install individual sub-commands only
-npx skills add https://github.com/magic-meal-kits/mmk-skills/tree/main/mmk-notion-page
-npx skills add https://github.com/magic-meal-kits/mmk-skills/tree/main/mmk-paymint-send
-npx skills add https://github.com/magic-meal-kits/mmk-skills/tree/main/mmk-threads-posts
-npx skills add https://github.com/magic-meal-kits/mmk-skills/tree/main/mmk-youtube-transcript
+npx skills add https://github.com/magic-meal-kits/mmk-skills/tree/main/skills/mmk-notion-page
+npx skills add https://github.com/magic-meal-kits/mmk-skills/tree/main/skills/mmk-paymint-send
+npx skills add https://github.com/magic-meal-kits/mmk-skills/tree/main/skills/mmk-threads-posts
+npx skills add https://github.com/magic-meal-kits/mmk-skills/tree/main/skills/mmk-youtube-transcript
+```
+
+```bash
+# Or install via plugin marketplace
+/plugin marketplace add magic-meal-kits/mmk-skills
+/plugin install mmk-skills@mmk-plugins
 ```
 
 ### 3. Use
