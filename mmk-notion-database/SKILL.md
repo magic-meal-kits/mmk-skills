@@ -69,3 +69,4 @@ mmk notion database ai-summary --database-id <db-uuid> --page-id <page-1> --page
 - [mmk-shared](../mmk-shared/SKILL.md) — Auth, global flags, error handling
 - [mmk-notion](../mmk-notion/SKILL.md) — All Notion commands overview
 - [mmk-notion-page](../mmk-notion-page/SKILL.md) — Page invite, publish, and config
+- [mmk-notion-database-ai-summary](../mmk-notion-database-ai-summary/SKILL.md) — Bulk AI summary generation (recipe)
