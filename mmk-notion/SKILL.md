@@ -21,7 +21,7 @@ Always use `-o json` when parsing results or composing with other commands.
 | `team` | List teams, invite to team, remove from team (3 commands) | [`mmk-notion-team`](../mmk-notion-team/SKILL.md) |
 | `subscription` | Show workspace subscription details (1 command) | [`mmk-notion-subscription`](../mmk-notion-subscription/SKILL.md) |
 | `people` | List members/guests, show guest page access (2 commands) | [`mmk-notion-people`](../mmk-notion-people/SKILL.md) |
-| `database` | Show schema, trigger AI summary (2 commands) | [`mmk-notion-database`](../mmk-notion-database/SKILL.md) |
+| `database` | Show schema, query with filters/sorts, trigger AI summary (3 commands) | [`mmk-notion-database`](../mmk-notion-database/SKILL.md) |
 | `meeting` | List AI meeting notes (1 command) | [`mmk-notion-meeting`](../mmk-notion-meeting/SKILL.md) |
 
 ## Tips
