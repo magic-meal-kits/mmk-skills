@@ -1,6 +1,6 @@
 ---
 name: mmk-notion-database
-description: Manage Notion databases — show property schema, trigger AI summary generation. Triggers on "database schema", "AI summary", "database properties", "detect AI", "ai-summary", "database structure".
+description: Manage Notion databases — show property schema, query with filters/sorts, trigger AI summary generation. Triggers on "database schema", "AI summary", "database properties", "detect AI", "ai-summary", "database structure", "query database", "filter", "sort", "database query".
 allowed-tools: Bash(mmk *)
 ---
 
@@ -21,9 +21,33 @@ mmk notion database schema --database-id <db-uuid> --detect-ai --page-id <page-u
 ```
 
 **Required:** `--database-id`
-**Optional:** `--detect-ai` (bool), `--page-id` (required with `--detect-ai` — accepts UUID or full Notion URL)
+**Optional:** `--detect-ai` (bool), `--page-id` (required with `--detect-ai` — accepts UUID or full Notion URL), `--enhanced` (bool — outputs LLM-friendly schema with select options and valid filter operators)
 
 When `--detect-ai` is set, output includes `property-id` and `workflow-id` values needed for the `ai-summary` command.
+
+---
+
+## query — Query a Notion database with filters, sorts, and pagination
+
+```bash
+mmk notion database query --database-id <db-uuid> -o json
+mmk notion database query --database-id <db> --filter "Status=Active" --sort "CreatedDate:desc" --limit 10 -o json
+mmk notion database query --database-id <db> --filter "Status=Active" --filter "Done=false" --properties "Name,Status,Price" -o json
+mmk notion database query --database-id <db> --cursor "eyJsYXN0..." -o json
+```
+
+**Required:** `--database-id`
+**Optional:**
+
+| Flag | Default | Description |
+|------|---------|-------------|
+| `--filter` | | Filter: `Key=Value` or `Key:operator=Value` (repeatable, AND logic) |
+| `--sort` | | Sort: `Property:asc` or `Property:desc` (repeatable) |
+| `--limit` | | Max results per page (max 100) |
+| `--properties` | | Property names to return (comma-separated) |
+| `--cursor` | | Pagination cursor for next page |
+
+Use `schema --enhanced` to discover available properties, types, and valid operators.
 
 ---
 
