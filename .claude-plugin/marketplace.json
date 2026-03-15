@@ -1,0 +1,12 @@
+{
+  "name": "mmk-plugins",
+  "owner": { "name": "Magic Meal Kits" },
+  "plugins": [
+    {
+      "name": "mmk-skills",
+      "source": ".",
+      "description": "Claude Code skills for MMK CLI operations",
+      "version": "1.0.0"
+    }
+  ]
+}

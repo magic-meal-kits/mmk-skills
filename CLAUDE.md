@@ -5,11 +5,13 @@ This repo contains Claude Code skills for the [Magic Meal Kits CLI](https://magi
 ## Folder Structure
 
 ```
-mmk-shared/SKILL.md              ← Background skill (auth, flags, errors)
-mmk-{service}/SKILL.md           ← Root skill (overview + sub-command table + shared guidance)
-mmk-{service}-{sub}/SKILL.md     ← Sub-command skill (focused command docs)
-mmk-{recipe}/SKILL.md            ← Recipe skill (multi-step workflow)
-README.md                        ← Inventory, architecture, install instructions
+skills/mmk-shared/SKILL.md              ← Background skill (auth, flags, errors)
+skills/mmk-{service}/SKILL.md           ← Root skill (overview + sub-command table + shared guidance)
+skills/mmk-{service}-{sub}/SKILL.md     ← Sub-command skill (focused command docs)
+skills/mmk-{recipe}/SKILL.md            ← Recipe skill (multi-step workflow)
+.claude-plugin/marketplace.json          ← Plugin marketplace catalog
+.claude-plugin/plugin.json               ← Plugin manifest
+README.md                               ← Inventory, architecture, install instructions
 ```
 
 - **One folder per skill.** Each folder contains exactly one `SKILL.md`.
@@ -141,7 +143,7 @@ When a new command is added to an existing service:
 
 When a new resource group or command needs its own folder:
 
-1. **Create folder** `mmk-{service}-{sub}/`
+1. **Create folder** `skills/mmk-{service}-{sub}/`
 2. **Create `SKILL.md`** using the sub-command template above
 3. **Update root skill** — add row to Sub-Command Skills table, adjust total count
 4. **Update `README.md`** — add to inventory table, architecture tree, skill list, install examples
@@ -151,7 +153,7 @@ When a new resource group or command needs its own folder:
 
 When adding an entirely new service (e.g., `mmk-naver`):
 
-1. **Create root folder** `mmk-{service}/SKILL.md` using root template
+1. **Create root folder** `skills/mmk-{service}/SKILL.md` using root template
 2. **Create sub-skill folders** per granularity rules above
 3. **Update `mmk-shared`** — add entry to Command Reference section
 4. **Update `README.md`** — add to inventory table, architecture tree, install section, usage examples
@@ -170,7 +172,7 @@ Run after every change:
 
 ```bash
 # Quick link check
-for f in */SKILL.md; do
+for f in skills/*/SKILL.md; do
   dir=$(dirname "$f")
   grep -oP '\.\./mmk-[^)]*SKILL\.md' "$f" 2>/dev/null | while read link; do
     resolved=$(echo "$dir/$link" | sed 's|[^/]*/\.\./||g')
