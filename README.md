@@ -14,7 +14,7 @@ Claude Code skills for automating [Magic Meal Kits](https://magicmealkits.com) C
 ### 1. Install the MMK CLI
 
 ```bash
-npm install -g @magic-meal-kits/cli
+npm install -g @magic-meal-kits/cli@beta
 mmk config set server <your-server-url>
 mmk auth login
 ```
@@ -184,5 +184,5 @@ These skills work alongside [GWS Skills](https://github.com/pureugong/gws) (Goog
 ## Requirements
 
 - [Claude Code](https://docs.anthropic.com/en/docs/claude-code) CLI
-- [MMK CLI](https://www.npmjs.com/package/@magic-meal-kits/cli) (`npm install -g @magic-meal-kits/cli`)
+- [MMK CLI](https://www.npmjs.com/package/@magic-meal-kits/cli) (`npm install -g @magic-meal-kits/cli@beta`)
 - Active MMK server endpoint

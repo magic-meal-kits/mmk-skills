@@ -13,7 +13,7 @@ The `mmk` CLI must be installed and configured:
 
 ```bash
 # Install
-npm install -g @magic-meal-kits/cli
+npm install -g @magic-meal-kits/cli@beta
 
 # Configure server endpoint
 mmk config set server <server-url>
