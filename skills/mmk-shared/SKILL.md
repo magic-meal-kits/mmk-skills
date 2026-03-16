@@ -73,3 +73,7 @@ Top-level commands available via `mmk`:
 - [`mmk youtube`](../mmk-youtube/SKILL.md) — YouTube tools: transcript, metadata, video type (3 commands)
 - `mmk auth` — Authentication
 - `mmk config` — CLI configuration
+- `mmk doctor` — Check CLI setup and server connectivity
+- `mmk plan` — Show current plan and feature access
+- `mmk status` — Show server health and connection status
+- `mmk upgrade` — Check for and install CLI updates (`--check` for check-only mode)
