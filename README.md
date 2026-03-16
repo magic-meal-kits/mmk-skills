@@ -21,13 +21,21 @@ mmk auth login
 
 ### 2. Install Skills
 
-Works with Claude Code, OpenCode, Codex, Cursor, and [38+ agents](https://github.com/nichochar/skills). Powered by Vercel Labs [`skills`](https://github.com/nichochar/skills) CLI.
+Works with Claude Code, Gemini CLI, OpenCode, Codex, Cursor, and [38+ agents](https://github.com/nichochar/skills).
 
 ```bash
-# Install all skills at once
+# Claude Code / OpenCode / Codex / Cursor — via skills CLI
 npx skills add https://github.com/magic-meal-kits/mmk-skills
 
-# Or install by service (root + all sub-commands)
+# Gemini CLI
+gemini extensions install https://github.com/magic-meal-kits/mmk-skills
+```
+
+<details>
+<summary>More install options (by service, individual sub-commands, plugin marketplace)</summary>
+
+```bash
+# Install by service (root + all sub-commands)
 npx skills add https://github.com/magic-meal-kits/mmk-skills/tree/main/skills/mmk-notion
 npx skills add https://github.com/magic-meal-kits/mmk-skills/tree/main/skills/mmk-paymint
 npx skills add https://github.com/magic-meal-kits/mmk-skills/tree/main/skills/mmk-threads
@@ -45,6 +53,8 @@ npx skills add https://github.com/magic-meal-kits/mmk-skills/tree/main/skills/mm
 /plugin marketplace add magic-meal-kits/mmk-skills
 /plugin install mmk-skills@mmk-plugins
 ```
+
+</details>
 
 ### 3. Use
 
@@ -179,7 +189,7 @@ mmk-shared (background)              <- Foundation: auth, flags, errors
 
 ## Compatibility
 
-These skills work alongside [GWS Skills](https://github.com/pureugong/gws) (Google Workspace CLI). The `mmk-notion-onboard` skill composes both `mmk` and `gws` commands.
+These skills work with Claude Code, Gemini CLI, OpenCode, Codex, Cursor, and [38+ agents](https://github.com/nichochar/skills). They also work alongside [GWS Skills](https://github.com/pureugong/gws) (Google Workspace CLI). The `mmk-notion-onboard` skill composes both `mmk` and `gws` commands.
 
 ## Requirements
 

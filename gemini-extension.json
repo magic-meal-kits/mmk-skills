@@ -1,0 +1,6 @@
+{
+  "name": "magic-meal-kits-cli",
+  "version": "latest",
+  "description": "CLI tool for Notion, Paymint, Threads, and YouTube automation.",
+  "contextFileName": "CONTEXT.md"
+}
