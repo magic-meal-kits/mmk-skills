@@ -7,7 +7,7 @@
 
 # MMK Skills
 
-Claude Code skills for automating [Magic Meal Kits](https://magicmealkits.com) CLI operations. Covers Notion, Paymint, Threads, and YouTube — all accessible via `/` commands in Claude Code.
+Agent skills for automating [Magic Meal Kits](https://magicmealkits.com) CLI operations. Covers Notion, Paymint, Threads, and YouTube. Works with Claude Code, Gemini CLI, OpenCode, Codex, Cursor, and [38+ agents](https://github.com/nichochar/skills).
 
 ## Getting Started
 
@@ -21,14 +21,20 @@ mmk auth login
 
 ### 2. Install Skills
 
-Works with Claude Code, Gemini CLI, OpenCode, Codex, Cursor, and [38+ agents](https://github.com/nichochar/skills).
+#### Gemini CLI
+
+Install the extension into the Gemini CLI:
 
 ```bash
-# Claude Code / OpenCode / Codex / Cursor — via skills CLI
-npx skills add https://github.com/magic-meal-kits/mmk-skills
-
-# Gemini CLI
 gemini extensions install https://github.com/magic-meal-kits/mmk-skills
+```
+
+Installing this extension gives your Gemini CLI agent direct access to all `mmk` commands and Magic Meal Kits agent skills. Because `mmk` handles its own authentication, you simply need to authenticate your terminal once (Step 1) and the extension will automatically inherit your credentials.
+
+#### Claude Code / OpenCode / Codex / Cursor
+
+```bash
+npx skills add https://github.com/magic-meal-kits/mmk-skills
 ```
 
 <details>
