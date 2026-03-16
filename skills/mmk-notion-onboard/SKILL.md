@@ -17,7 +17,7 @@ A multi-step workflow that invites a user to a Notion page, and if they don't ha
 ## Prerequisites
 
 Both CLIs must be installed and authenticated:
-- `mmk` — Magic Meal Kits CLI (`npm install -g @magic-meal-kits/cli`)
+- `mmk` — Magic Meal Kits CLI (`npm install -g @magic-meal-kits/cli@beta`)
 - `gws` — Google Workspace CLI
 
 ## Workflow
