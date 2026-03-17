@@ -91,6 +91,7 @@ Type `/` in Claude Code to see available skills:
 /mmk-youtube-transcript — Video transcript
 /mmk-notion-onboard     — Invite to Notion with Gmail fallback (recipe)
 /mmk-notion-database-ai-summary — Bulk AI summary across database pages (recipe)
+/mmk-paymint-notion-invoice — Batch send Paymint invoices from Notion database (recipe)
 ```
 
 ## Skill Inventory
@@ -127,6 +128,7 @@ Type `/` in Claude Code to see available skills:
 | **Recipes** | | | |
 | `mmk-notion-onboard` | Recipe | Manual only | Multi-step: Notion invite + Gmail signup fallback |
 | `mmk-notion-database-ai-summary` | Recipe | Manual only | Multi-step: Discover AI config + batch summary generation |
+| `mmk-paymint-notion-invoice` | Recipe | Manual only | Multi-step: Notion DB query + batch Paymint invoice send |
 
 ### Architecture
 
@@ -155,7 +157,8 @@ mmk-shared (background)              <- Foundation: auth, flags, errors
 │   ├── mmk-youtube-videotype        <- Video vs Short
 │   └── mmk-youtube-transcript       <- Video transcript
 ├── mmk-notion-onboard (recipe)      <- Notion invite + Gmail fallback
-└── mmk-notion-database-ai-summary (recipe) <- Bulk AI summary for database
+├── mmk-notion-database-ai-summary (recipe) <- Bulk AI summary for database
+└── mmk-paymint-notion-invoice (recipe) <- Batch invoice from Notion DB
 ```
 
 - **Background skills** load automatically when relevant context is detected
@@ -184,6 +187,13 @@ mmk-shared (background)              <- Foundation: auth, flags, errors
 ```
 /mmk-threads-posts
 > Show my last 10 posts with engagement metrics
+```
+
+### Paymint: Batch invoices from Notion
+
+```
+/mmk-paymint-notion-invoice
+> Send invoices from database abc123-def456
 ```
 
 ### YouTube: Get a transcript
