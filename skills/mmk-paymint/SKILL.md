@@ -1,6 +1,6 @@
 ---
 name: mmk-paymint
-description: This skill should be used when the user asks to send invoices, check payment status, cancel/refund payments, resend invoice SMS, list licenses, or any Paymint billing operation using the mmk CLI. Triggers on phrases like "send invoice", "payment status", "cancel payment", "refund", "resend SMS", "list licenses", "billing", "paymint".
+description: This skill should be used when the user asks to send invoices, check payment status, cancel/refund payments, resend invoice SMS, list licenses, bulk send, bulk resend, or any Paymint billing operation using the mmk CLI. Triggers on phrases like "send invoice", "payment status", "cancel payment", "refund", "resend SMS", "list licenses", "billing", "paymint", "bulk send", "bulk resend", "batch invoice".
 allowed-tools: Bash(mmk *)
 ---
 
@@ -21,6 +21,8 @@ Always use `-o json` when parsing results or composing with other commands.
 | `status` | Check invoice status | [`mmk-paymint-status`](../mmk-paymint-status/SKILL.md) |
 | `cancel` | Cancel/refund invoice | [`mmk-paymint-cancel`](../mmk-paymint-cancel/SKILL.md) |
 | `resend` | Resend invoice SMS | [`mmk-paymint-resend`](../mmk-paymint-resend/SKILL.md) |
+| `bulk-send` | Send multiple invoices at once | [`mmk-paymint-bulk-send`](../mmk-paymint-bulk-send/SKILL.md) |
+| `bulk-resend` | Resend SMS for multiple invoices at once | [`mmk-paymint-bulk-resend`](../mmk-paymint-bulk-resend/SKILL.md) |
 
 ## License Resolution
 

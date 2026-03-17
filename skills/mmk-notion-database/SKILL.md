@@ -1,6 +1,6 @@
 ---
 name: mmk-notion-database
-description: Manage Notion databases — show property schema, query with filters/sorts, trigger AI summary generation. Triggers on "database schema", "AI summary", "database properties", "detect AI", "ai-summary", "database structure", "query database", "filter", "sort", "database query".
+description: Manage Notion databases — show property schema, query with filters/sorts, trigger AI summary generation, insert/update/upsert/delete records. Triggers on "database schema", "AI summary", "database properties", "detect AI", "ai-summary", "database structure", "query database", "filter", "sort", "database query", "insert records", "update records", "upsert", "delete pages", "bulk insert", "bulk update", "bulk delete".
 allowed-tools: Bash(mmk *)
 ---
 
@@ -48,6 +48,71 @@ mmk notion database query --database-id <db> --cursor "eyJsYXN0..." -o json
 | `--cursor` | | Pagination cursor for next page |
 
 Use `schema --enhanced` to discover available properties, types, and valid operators.
+
+---
+
+## insert — Bulk insert records into a Notion database
+
+```bash
+mmk notion database insert --database-id <db> --data '{"Name":"Test","Status":"Active"}' -o json
+mmk notion database insert --database-id <db> --data '[{"Name":"A"},{"Name":"B"}]' -o json
+mmk notion database insert --database-id <db> --file records.json -o json
+mmk notion database insert --database-id <db> --set Name=Test --set Status=Active -o json
+```
+
+**Required:** `--database-id`, one of `--data`, `--file`, `--set`, or piped stdin
+**Optional:**
+
+| Flag | Description |
+|------|-------------|
+| `--show-schema` | Show database schema and exit |
+| `--icon-emoji` | Emoji icon for new pages |
+| `--template-id` | Template page ID for new pages |
+
+---
+
+## update — Bulk update existing Notion pages
+
+```bash
+mmk notion database update --data '{"page_id":"abc-123","Status":"Done"}' -o json
+mmk notion database update --data '[{"page_id":"abc","Status":"Done"},{"page_id":"def","Status":"Active"}]' -o json
+mmk notion database update --page-id abc-123 --set Status=Done --set Priority=High -o json
+mmk notion database update --file updates.json -o json
+```
+
+**Required:** one of `--data` (each object must include `page_id`), `--file`, or `--page-id` + `--set`, or piped stdin
+
+---
+
+## upsert — Bulk upsert records in a Notion database
+
+```bash
+mmk notion database upsert --database-id <db> --lookup Name --data '[{"Name":"Test","Status":"Done"}]' -o json
+mmk notion database upsert --database-id <db> --lookup Name,Email --file records.json -o json
+mmk notion database upsert --database-id <db> --lookup Name --update-properties Status,Priority --set Name=Test --set Status=Done -o json
+```
+
+**Required:** `--database-id`, `--lookup` (property names for matching, repeatable or comma-separated), one of `--data`, `--file`, `--set`, or piped stdin
+**Optional:**
+
+| Flag | Description |
+|------|-------------|
+| `--update-properties` | Property names to update on match (optional — updates all if omitted) |
+| `--show-schema` | Show database schema and exit |
+| `--icon-emoji` | Emoji icon for new pages |
+| `--template-id` | Template page ID for new pages |
+
+---
+
+## delete — Bulk delete (archive) Notion pages
+
+```bash
+mmk notion database delete --page-id abc-123 --page-id def-456 -o json
+mmk notion database delete --data '["abc-123","def-456"]' -o json
+mmk notion database delete --file page_ids.json -o json
+```
+
+**Required:** one of `--page-id` (repeatable), `--data` (JSON array of ID strings), `--file`, or piped stdin
 
 ---
 
