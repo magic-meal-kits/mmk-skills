@@ -30,3 +30,4 @@ mmk paymint send --phone 01012345678 --amount 10000 --product "Monthly Fee" --na
 - [mmk-paymint](../mmk-paymint/SKILL.md) — License Resolution, Error Patterns, all Paymint commands overview
 - [mmk-paymint-status](../mmk-paymint-status/SKILL.md) — Check invoice status
 - [mmk-paymint-cancel](../mmk-paymint-cancel/SKILL.md) — Cancel/refund invoice
+- [mmk-paymint-notion-invoice](../mmk-paymint-notion-invoice/SKILL.md) — Batch invoice from Notion database (recipe)
