@@ -1,6 +1,6 @@
 ---
 name: mmk-notion-page
-description: Manage Notion pages — invite, revoke, publish, unpublish, config, publish-settings, duplicate, list-published. Triggers on "invite to page", "revoke access", "publish page", "unpublish", "page config", "full width", "publish settings", "duplicate page", "list published".
+description: Manage Notion pages — invite, revoke, publish, unpublish, config, publish-settings, duplicate, list-published, markdown, transcript. Triggers on "invite to page", "revoke access", "publish page", "unpublish", "page config", "full width", "publish settings", "duplicate page", "list published", "page markdown", "page transcript", "meeting transcript".
 allowed-tools: Bash(mmk *)
 ---
 
@@ -109,6 +109,28 @@ mmk notion page list-published --type forms -o json
 ```
 
 **Optional:** `--type` — `sites` (default), `forms`, or `links`
+
+---
+
+## markdown — Retrieve a Notion page as cleaned markdown
+
+```bash
+mmk notion page markdown <page_id> -o json
+```
+
+**Required:** `<page_id>` (positional)
+
+---
+
+## transcript — Get meeting note transcript, summary, and notes from a page
+
+```bash
+mmk notion page transcript <page_id> -o json
+mmk notion page transcript <page_id> --include summary,notes -o json
+```
+
+**Required:** `<page_id>` (positional)
+**Optional:** `--include` — sections to include: `summary`, `notes`, `transcript` (comma-separated, default: all)
 
 ---
 
