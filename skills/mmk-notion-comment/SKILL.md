@@ -17,9 +17,18 @@ Always use `-o json` when parsing results or composing with other commands.
 
 ```bash
 mmk notion comment add --page-id <page-id> --text "<comment text>" -o json
+mmk notion comment add --page-id <page-id> --mention-user <user-id> --text "Please review" -o json
+mmk notion comment add --page-id <page-id> --mention-page <page-id> --text "See this page" -o json
 ```
 
 **Required:** `--page-id`, `--text`
+**Optional:**
+
+| Flag | Default | Description |
+|------|---------|-------------|
+| `--mention-user` | — | Mention user(s) by ID (repeatable) |
+| `--mention-page` | — | Mention page(s) by ID (repeatable) |
+| `--mention-database` | — | Mention database(s) by ID (repeatable) |
 
 ---
 
@@ -44,9 +53,17 @@ mmk notion comment list --page-id <page-id> --limit 50 -o json
 
 ```bash
 mmk notion comment reply --discussion-id <discussion-id> --text "<reply text>" -o json
+mmk notion comment reply --discussion-id <discussion-id> --mention-user <user-id> --text "Done" -o json
 ```
 
 **Required:** `--discussion-id`, `--text`
+**Optional:**
+
+| Flag | Default | Description |
+|------|---------|-------------|
+| `--mention-user` | — | Mention user(s) by ID (repeatable) |
+| `--mention-page` | — | Mention page(s) by ID (repeatable) |
+| `--mention-database` | — | Mention database(s) by ID (repeatable) |
 
 ---
 
