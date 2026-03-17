@@ -26,7 +26,7 @@ A multi-step workflow that reads invoice records from a Notion database, validat
 | `Product` | Rich Text | `--product` | Product/service description |
 | `Message` | Rich Text | `--message` | Invoice message |
 | `Expire` | Date | `--expire` | Per-row expiry (YYYY-MM-DD). Default: 7 days from send date if empty |
-| `Status` | Status or Select | Filter key | `Pending` / `Invoiced` / `Failed` / `Paid` / `Cancelled` |
+| `Status` | Status or Select | Filter key | Recommended: `Pending` / `Invoiced` / `Failed` / `Paid` / `Cancelled`. The recipe adapts to whatever options exist in the database (see Step 1 status mapping). |
 | `TID` | Rich Text | — | Transaction ID after send (for status/cancel/resend) |
 | `Error` | Rich Text | — | Error message on failure |
 | `SentAt` | Date | — | When invoice was sent |
@@ -70,16 +70,45 @@ mmk notion database schema --database-id <db-uuid> --enhanced -o json
 
 Confirm that the required properties exist: `Name`, `Phone`, `Amount`, `Product`, `Message`, `Status`. Stop with a clear error if any critical property is missing.
 
+#### Status option mapping
+
+After confirming properties exist, inspect the Status field's select/status options from the `--enhanced` schema output. The recipe needs three logical states mapped to actual option names in the database:
+
+| Logical state | Used in | Default |
+|---------------|---------|---------|
+| **pending** | Step 2 query filter | `Pending` |
+| **success** | Step 7 write-back (sent OK) | `Invoiced` |
+| **failure** | Step 7 write-back (send error) | `Failed` |
+
+**Mapping logic:**
+
+1. Extract the Status property's option list from the enhanced schema JSON.
+2. If options exist, try auto-mapping (case-insensitive):
+   - **pending**: match `Pending`, `pending`, `대기`, `미발송`
+   - **success**: match `Invoiced`, `Sent`, `invoiced`, `sent`, `발송완료`, `청구됨`
+   - **failure**: match `Failed`, `Error`, `failed`, `error`, `실패`
+3. If all 3 states map confidently, show the mapping and proceed:
+   ```
+   Status mapping (auto-detected):
+     pending  -> "Pending"
+     success  -> "Invoiced"
+     failure  -> "Failed"
+   ```
+4. If any state is ambiguous (multiple candidates or no match), present the available options and ask the user to pick which option maps to each unmapped state.
+5. If the Status field has no options (e.g., plain text property), fall back to defaults: `Pending`, `Invoiced`, `Failed`.
+
 ### Step 2: Query pending invoices
 
+Use the **pending** value from Step 1 status mapping as the filter:
+
 ```bash
-mmk notion database query --database-id <db-uuid> --filter "Status=Pending" --properties "Name,Phone,Amount,Product,Message,Expire" -o json
+mmk notion database query --database-id <db-uuid> --filter "Status=<mapped-pending-value>" --properties "Name,Phone,Amount,Product,Message,Expire" -o json
 ```
 
 If more than 100 records, paginate with `--cursor`:
 
 ```bash
-mmk notion database query --database-id <db-uuid> --filter "Status=Pending" --properties "Name,Phone,Amount,Product,Message,Expire" --cursor "<next-cursor>" -o json
+mmk notion database query --database-id <db-uuid> --filter "Status=<mapped-pending-value>" --properties "Name,Phone,Amount,Product,Message,Expire" --cursor "<next-cursor>" -o json
 ```
 
 Repeat until all pending records are collected.
@@ -156,16 +185,18 @@ Display a final summary:
 
 Build update payloads from the send results and write back to Notion:
 
+Use the **success** and **failure** values from Step 1 status mapping:
+
 ```bash
 mmk notion database update --data '[
-  {"page_id":"<page-id>","Status":"Invoiced","TID":"txn_abc","SentAt":"2026-03-17"},
-  {"page_id":"<page-id>","Status":"Failed","Error":"amount below minimum"}
+  {"page_id":"<page-id>","Status":"<mapped-success-value>","TID":"txn_abc","SentAt":"2026-03-17"},
+  {"page_id":"<page-id>","Status":"<mapped-failure-value>","Error":"amount below minimum"}
 ]' -o json
 ```
 
 For each record from Step 5:
-- **Sent successfully** — set `Status=Invoiced`, `TID=<tid>`, `SentAt=<current datetime>`
-- **Send failed** — set `Status=Failed`, `Error=<error message>`
+- **Sent successfully** — set `Status=<mapped-success-value>`, `TID=<tid>`, `SentAt=<current datetime>`
+- **Send failed** — set `Status=<mapped-failure-value>`, `Error=<error message>`
 
 **Wait for explicit user confirmation before writing back to Notion.** This is a separate confirmation from Step 4. Display the planned updates as a preview table before asking.
 
@@ -204,7 +235,12 @@ Claude: [Step 0] Resolving Paymint license...
        Found required properties: Name, Phone, Amount, Product, Message, Status.
        Optional properties found: Expire, TID, Error, SentAt.
 
-       [Step 2] Querying pending invoices...
+       Status mapping (auto-detected from Status options):
+         pending  -> "Pending"
+         success  -> "Invoiced"
+         failure  -> "Failed"
+
+       [Step 2] Querying pending invoices (Status=Pending)...
        Found 5 records with Status=Pending.
 
        [Step 3] Validating phone numbers...
