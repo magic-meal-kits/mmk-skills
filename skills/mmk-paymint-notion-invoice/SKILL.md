@@ -1,6 +1,6 @@
 ---
 name: mmk-paymint-notion-invoice
-description: Batch send Paymint invoices from a Notion database. Triggers on "batch invoice from notion", "send invoices from database", "notion invoice", "paymint notion", "bulk invoice send".
+description: Batch send Paymint invoices from a Notion database with Notion write-back. Triggers on "batch invoice from notion", "send invoices from database", "notion invoice", "paymint notion", "bulk invoice send".
 disable-model-invocation: true
 allowed-tools: Bash(mmk *)
 ---
@@ -12,7 +12,7 @@ allowed-tools: Bash(mmk *)
 > Uses: [`mmk-paymint-send`](../mmk-paymint-send/SKILL.md) — Send invoice command.
 > Uses: [`mmk-paymint-licenses`](../mmk-paymint-licenses/SKILL.md) — License resolution.
 
-A multi-step workflow that reads invoice records from a Notion database, validates phone numbers, previews with dry-run, and sends Paymint invoices in batch.
+A multi-step workflow that reads invoice records from a Notion database, validates phone numbers, previews with dry-run, sends Paymint invoices in bulk, and writes results back to Notion.
 
 **This recipe has side effects** (sends real invoices with payment links via SMS). It requires manual invocation only.
 
@@ -110,21 +110,24 @@ Display a summary table of valid records:
 
 **Wait for explicit user confirmation before proceeding.** If the user declines, stop.
 
-### Step 5: Send invoices
+### Step 5: Bulk-send invoices
 
-For each valid record, run:
+Build a JSON array from all valid records and send in one call:
 
 ```bash
-mmk paymint send --phone <normalized-phone> --amount <amount> --product "<product>" --name "<name>" --message "<message>" --expire <expire> -o json
+mmk paymint bulk-send --business-number <bn> --expire <default-expire> --data '[
+  {"phone":"01012345678","amount":50000,"product":"Workshop","name":"Kim","message":"Invoice for workshop","expire":"2026-03-24"},
+  {"phone":"01098765432","amount":30000,"product":"Lecture","name":"Lee","message":"Invoice for lecture"}
+]' -o json
 ```
 
-Add `--business-number <bn>` if resolved in Step 0 with multiple licenses.
+**Required:** `--data` (JSON array of records). Each record must have `phone`, `amount`, `product`, `name`, `message`.
+**Optional:** Per-record `expire` overrides the shared `--expire` flag. `--business-number` required if multiple licenses. `--expire` defaults to 7 days from send date.
 
-For each send:
-- **Success** — capture the TID from the response
-- **Failure** — capture the error message
-- **Continue regardless** — do not stop on individual failures
-- Report progress after each send (e.g., "Sent 3/10: Kim - OK (TID: abc123)")
+The response includes per-record results:
+- **Success** — includes TID for the record
+- **Failure** — includes error message for the record
+- All records are attempted regardless of individual failures
 
 ### Step 6: Report results
 
@@ -149,13 +152,22 @@ Display a final summary:
 |------|-------------|--------|
 ```
 
-### Step 7 (Future): Update Notion records
+### Step 7: Update Notion records
 
-> **Note:** When `mmk notion database update` becomes available, this step will auto-update each row:
-> - **Status** to `Invoiced` or `Failed`
-> - **TID** with the transaction ID
-> - **Error** with the failure message
-> - **SentAt** with the send timestamp
+Build update payloads from the send results and write back to Notion:
+
+```bash
+mmk notion database update --data '[
+  {"page_id":"<page-id>","Status":"Invoiced","TID":"txn_abc","SentAt":"2026-03-17"},
+  {"page_id":"<page-id>","Status":"Failed","Error":"amount below minimum"}
+]' -o json
+```
+
+For each record from Step 5:
+- **Sent successfully** — set `Status=Invoiced`, `TID=<tid>`, `SentAt=<current datetime>`
+- **Send failed** — set `Status=Failed`, `Error=<error message>`
+
+**Wait for explicit user confirmation before writing back to Notion.** This is a separate confirmation from Step 4. Display the planned updates as a preview table before asking.
 
 ## Parameters
 
@@ -217,19 +229,32 @@ Claude: [Step 0] Resolving Paymint license...
 
 User: yes
 
-Claude: [Step 5] Sending invoices...
-       1/4: Kim - OK (TID: txn_abc1)
-       2/4: Lee - OK (TID: txn_abc2)
-       3/4: Choi - FAILED (amount below minimum)
-       4/4: Park - OK (TID: txn_abc3)
+Claude: [Step 5] Bulk-sending 4 invoices...
+       Results:
+       - Kim: OK (TID: txn_abc1)
+       - Lee: OK (TID: txn_abc2)
+       - Choi: FAILED (amount below minimum)
+       - Park: OK (TID: txn_abc3)
 
        [Step 6] Results:
        Sent: 3 invoices
        Failed: 1 invoice
        Skipped: 1 record
 
-       Note: When `mmk notion database update` is available,
-       Status/TID/Error fields can be written back automatically.
+       [Step 7] Ready to update Notion records:
+       | Name | Status   | TID       | Error                |
+       |------|----------|-----------|----------------------|
+       | Kim  | Invoiced | txn_abc1  |                      |
+       | Lee  | Invoiced | txn_abc2  |                      |
+       | Choi | Failed   |           | amount below minimum |
+       | Park | Invoiced | txn_abc3  |                      |
+
+       Write these updates back to Notion? (yes/no)
+
+User: yes
+
+Claude: [Step 7] Updating Notion records...
+       4 records updated successfully.
 ```
 
 ## See Also
