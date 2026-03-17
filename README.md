@@ -74,6 +74,8 @@ Type `/` in Claude Code to see available skills:
 /mmk-notion-subscription — Subscription details (1 command)
 /mmk-notion-people      — List members/guests, guest pages (2 commands)
 /mmk-notion-database    — Schema, query, insert, update, upsert, delete, AI summary (7 commands)
+/mmk-notion-comment     — Page comments: add, list, reply (3 commands)
+/mmk-notion-user        — User details, list workspace users (2 commands)
 /mmk-notion-meeting     — AI meeting notes (1 command)
 /mmk-paymint            — Paymint overview + license resolution + errors
 /mmk-paymint-licenses   — List licenses
@@ -93,6 +95,7 @@ Type `/` in Claude Code to see available skills:
 /mmk-youtube-transcript — Video transcript
 /mmk-notion-onboard     — Invite to Notion with Gmail fallback (recipe)
 /mmk-notion-database-ai-summary — Bulk AI summary across database pages (recipe)
+/mmk-notion-meeting-comment — Post structured meeting summary as page comment (recipe)
 /mmk-paymint-notion-invoice — Batch send Paymint invoices from Notion database (recipe)
 ```
 
@@ -102,13 +105,15 @@ Type `/` in Claude Code to see available skills:
 |-------|------|---------|----------|
 | `mmk-shared` | Background | Auto-loaded | Foundation: auth, flags, errors |
 | **Notion** | | | |
-| `mmk-notion` | Root | `/mmk-notion` | Overview + sub-command links (26 commands total) |
+| `mmk-notion` | Root | `/mmk-notion` | Overview + sub-command links (31 commands total) |
 | `mmk-notion-page` | Sub-command | `/mmk-notion-page` | invite, revoke, publish, unpublish, config, publish-settings, duplicate, list-published, markdown, transcript |
 | `mmk-notion-workspace` | Sub-command | `/mmk-notion-workspace` | invite, remove |
 | `mmk-notion-team` | Sub-command | `/mmk-notion-team` | list, invite, remove |
 | `mmk-notion-subscription` | Sub-command | `/mmk-notion-subscription` | subscription |
 | `mmk-notion-people` | Sub-command | `/mmk-notion-people` | list, guest-pages |
 | `mmk-notion-database` | Sub-command | `/mmk-notion-database` | schema, query, insert, update, upsert, delete, ai-summary |
+| `mmk-notion-comment` | Sub-command | `/mmk-notion-comment` | add, list, reply |
+| `mmk-notion-user` | Sub-command | `/mmk-notion-user` | get, list |
 | `mmk-notion-meeting` | Sub-command | `/mmk-notion-meeting` | list |
 | **Paymint** | | | |
 | `mmk-paymint` | Root | `/mmk-paymint` | Overview + license resolution + errors (7 commands total) |
@@ -132,19 +137,22 @@ Type `/` in Claude Code to see available skills:
 | **Recipes** | | | |
 | `mmk-notion-onboard` | Recipe | Manual only | Multi-step: Notion invite + Gmail signup fallback |
 | `mmk-notion-database-ai-summary` | Recipe | Manual only | Multi-step: Discover AI config + batch summary generation |
+| `mmk-notion-meeting-comment` | Recipe | Manual only | Multi-step: Meeting transcript + structured comment |
 | `mmk-paymint-notion-invoice` | Recipe | Manual only | Multi-step: Notion DB query + batch Paymint invoice send |
 
 ### Architecture
 
 ```
 mmk-shared (background)              <- Foundation: auth, flags, errors
-├── mmk-notion (root)                <- Overview + tips (26 commands)
+├── mmk-notion (root)                <- Overview + tips (31 commands)
 │   ├── mmk-notion-page              <- 10 page commands
 │   ├── mmk-notion-workspace         <- 2 workspace commands
 │   ├── mmk-notion-team              <- 3 team commands
 │   ├── mmk-notion-subscription      <- 1 subscription command
 │   ├── mmk-notion-people            <- 2 people commands
 │   ├── mmk-notion-database          <- 7 database commands
+│   ├── mmk-notion-comment           <- 3 comment commands
+│   ├── mmk-notion-user              <- 2 user commands
 │   └── mmk-notion-meeting           <- 1 meeting command
 ├── mmk-paymint (root)               <- Overview + license resolution + errors (7 commands)
 │   ├── mmk-paymint-licenses         <- List licenses
@@ -164,6 +172,7 @@ mmk-shared (background)              <- Foundation: auth, flags, errors
 │   └── mmk-youtube-transcript       <- Video transcript
 ├── mmk-notion-onboard (recipe)      <- Notion invite + Gmail fallback
 ├── mmk-notion-database-ai-summary (recipe) <- Bulk AI summary for database
+├── mmk-notion-meeting-comment (recipe) <- Meeting transcript + summary comment
 └── mmk-paymint-notion-invoice (recipe) <- Batch invoice from Notion DB
 ```
 

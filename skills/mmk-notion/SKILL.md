@@ -1,6 +1,6 @@
 ---
 name: mmk-notion
-description: This skill should be used when the user asks to manage Notion pages, workspaces, teams, people, databases, meetings, publishing, subscriptions, or any Notion-related operation using the mmk CLI. Triggers on phrases like "invite to Notion", "publish page", "revoke access", "list teams", "database schema", "AI summary", "meeting notes", "workspace members", "duplicate page", "page config", "publish settings", "list published", "guest pages", "subscription".
+description: This skill should be used when the user asks to manage Notion pages, workspaces, teams, people, databases, meetings, comments, users, publishing, subscriptions, or any Notion-related operation using the mmk CLI. Triggers on phrases like "invite to Notion", "publish page", "revoke access", "list teams", "database schema", "AI summary", "meeting notes", "workspace members", "duplicate page", "page config", "publish settings", "list published", "guest pages", "subscription", "add comment", "reply to comment", "list users", "get user".
 allowed-tools: Bash(mmk *)
 ---
 
@@ -22,6 +22,8 @@ Always use `-o json` when parsing results or composing with other commands.
 | `subscription` | Show workspace subscription details (1 command) | [`mmk-notion-subscription`](../mmk-notion-subscription/SKILL.md) |
 | `people` | List members/guests, show guest page access (2 commands) | [`mmk-notion-people`](../mmk-notion-people/SKILL.md) |
 | `database` | Schema, query, insert, update, upsert, delete, AI summary (7 commands) | [`mmk-notion-database`](../mmk-notion-database/SKILL.md) |
+| `comment` | Add, list, reply page comments (3 commands) | [`mmk-notion-comment`](../mmk-notion-comment/SKILL.md) |
+| `user` | Get user details, list workspace users (2 commands) | [`mmk-notion-user`](../mmk-notion-user/SKILL.md) |
 | `meeting` | List AI meeting notes (1 command) | [`mmk-notion-meeting`](../mmk-notion-meeting/SKILL.md) |
 
 ## Tips
