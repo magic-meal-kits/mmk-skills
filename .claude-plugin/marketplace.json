@@ -1,10 +1,14 @@
 {
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "mmk-plugins",
   "owner": { "name": "Magic Meal Kits" },
   "plugins": [
     {
       "name": "mmk-skills",
-      "source": ".",
+      "source": {
+        "source": "github",
+        "repo": "magic-meal-kits/mmk-skills"
+      },
       "description": "Claude Code skills for MMK CLI operations",
       "version": "1.0.0"
     }
