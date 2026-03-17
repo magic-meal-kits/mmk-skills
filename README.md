@@ -73,7 +73,7 @@ Type `/` in Claude Code to see available skills:
 /mmk-notion-team        — Team list, invite, remove (3 commands)
 /mmk-notion-subscription — Subscription details (1 command)
 /mmk-notion-people      — List members/guests, guest pages (2 commands)
-/mmk-notion-database    — Schema, query, AI summary (3 commands)
+/mmk-notion-database    — Schema, query, insert, update, upsert, delete, AI summary (7 commands)
 /mmk-notion-meeting     — AI meeting notes (1 command)
 /mmk-paymint            — Paymint overview + license resolution + errors
 /mmk-paymint-licenses   — List licenses
@@ -81,6 +81,8 @@ Type `/` in Claude Code to see available skills:
 /mmk-paymint-status     — Check invoice status
 /mmk-paymint-cancel     — Cancel/refund invoice
 /mmk-paymint-resend     — Resend invoice SMS
+/mmk-paymint-bulk-send  — Bulk send invoices
+/mmk-paymint-bulk-resend — Bulk resend SMS
 /mmk-threads            — Threads overview + pagination
 /mmk-threads-posts      — Get recent posts
 /mmk-threads-insights   — Account analytics
@@ -100,21 +102,23 @@ Type `/` in Claude Code to see available skills:
 |-------|------|---------|----------|
 | `mmk-shared` | Background | Auto-loaded | Foundation: auth, flags, errors |
 | **Notion** | | | |
-| `mmk-notion` | Root | `/mmk-notion` | Overview + sub-command links (20 commands total) |
+| `mmk-notion` | Root | `/mmk-notion` | Overview + sub-command links (24 commands total) |
 | `mmk-notion-page` | Sub-command | `/mmk-notion-page` | invite, revoke, publish, unpublish, config, publish-settings, duplicate, list-published |
 | `mmk-notion-workspace` | Sub-command | `/mmk-notion-workspace` | invite, remove |
 | `mmk-notion-team` | Sub-command | `/mmk-notion-team` | list, invite, remove |
 | `mmk-notion-subscription` | Sub-command | `/mmk-notion-subscription` | subscription |
 | `mmk-notion-people` | Sub-command | `/mmk-notion-people` | list, guest-pages |
-| `mmk-notion-database` | Sub-command | `/mmk-notion-database` | schema, query, ai-summary |
+| `mmk-notion-database` | Sub-command | `/mmk-notion-database` | schema, query, insert, update, upsert, delete, ai-summary |
 | `mmk-notion-meeting` | Sub-command | `/mmk-notion-meeting` | list |
 | **Paymint** | | | |
-| `mmk-paymint` | Root | `/mmk-paymint` | Overview + license resolution + errors (5 commands total) |
+| `mmk-paymint` | Root | `/mmk-paymint` | Overview + license resolution + errors (7 commands total) |
 | `mmk-paymint-licenses` | Sub-command | `/mmk-paymint-licenses` | licenses |
 | `mmk-paymint-send` | Sub-command | `/mmk-paymint-send` | send |
 | `mmk-paymint-status` | Sub-command | `/mmk-paymint-status` | status |
 | `mmk-paymint-cancel` | Sub-command | `/mmk-paymint-cancel` | cancel |
 | `mmk-paymint-resend` | Sub-command | `/mmk-paymint-resend` | resend |
+| `mmk-paymint-bulk-send` | Sub-command | `/mmk-paymint-bulk-send` | bulk-send |
+| `mmk-paymint-bulk-resend` | Sub-command | `/mmk-paymint-bulk-resend` | bulk-resend |
 | **Threads** | | | |
 | `mmk-threads` | Root | `/mmk-threads` | Overview + pagination (3 commands total) |
 | `mmk-threads-posts` | Sub-command | `/mmk-threads-posts` | posts |
@@ -134,20 +138,22 @@ Type `/` in Claude Code to see available skills:
 
 ```
 mmk-shared (background)              <- Foundation: auth, flags, errors
-├── mmk-notion (root)                <- Overview + tips (20 commands)
+├── mmk-notion (root)                <- Overview + tips (24 commands)
 │   ├── mmk-notion-page              <- 8 page commands
 │   ├── mmk-notion-workspace         <- 2 workspace commands
 │   ├── mmk-notion-team              <- 3 team commands
 │   ├── mmk-notion-subscription      <- 1 subscription command
 │   ├── mmk-notion-people            <- 2 people commands
-│   ├── mmk-notion-database          <- 3 database commands
+│   ├── mmk-notion-database          <- 7 database commands
 │   └── mmk-notion-meeting           <- 1 meeting command
-├── mmk-paymint (root)               <- Overview + license resolution + errors (5 commands)
+├── mmk-paymint (root)               <- Overview + license resolution + errors (7 commands)
 │   ├── mmk-paymint-licenses         <- List licenses
 │   ├── mmk-paymint-send             <- Send invoice
 │   ├── mmk-paymint-status           <- Check status
 │   ├── mmk-paymint-cancel           <- Cancel/refund
-│   └── mmk-paymint-resend           <- Resend SMS
+│   ├── mmk-paymint-resend           <- Resend SMS
+│   ├── mmk-paymint-bulk-send        <- Bulk send invoices
+│   └── mmk-paymint-bulk-resend      <- Bulk resend SMS
 ├── mmk-threads (root)               <- Overview + pagination (3 commands)
 │   ├── mmk-threads-posts            <- Get posts
 │   ├── mmk-threads-insights         <- Account analytics
