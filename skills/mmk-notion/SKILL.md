@@ -16,7 +16,7 @@ Always use `-o json` when parsing results or composing with other commands.
 
 | Sub-command | Description | Skill |
 |-------------|-------------|-------|
-| `page` | Invite, revoke, publish, unpublish, config, publish-settings, duplicate, list-published (8 commands) | [`mmk-notion-page`](../mmk-notion-page/SKILL.md) |
+| `page` | Invite, revoke, publish, unpublish, config, publish-settings, duplicate, list-published, markdown, transcript (10 commands) | [`mmk-notion-page`](../mmk-notion-page/SKILL.md) |
 | `workspace` | Invite users to workspace, remove from workspace (2 commands) | [`mmk-notion-workspace`](../mmk-notion-workspace/SKILL.md) |
 | `team` | List teams, invite to team, remove from team (3 commands) | [`mmk-notion-team`](../mmk-notion-team/SKILL.md) |
 | `subscription` | Show workspace subscription details (1 command) | [`mmk-notion-subscription`](../mmk-notion-subscription/SKILL.md) |

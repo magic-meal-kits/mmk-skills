@@ -67,7 +67,7 @@ If commands return authentication errors:
 ## Command Reference
 
 Top-level commands available via `mmk`:
-- [`mmk notion`](../mmk-notion/SKILL.md) — Notion page, workspace, team, people, database, meeting management (24 commands)
+- [`mmk notion`](../mmk-notion/SKILL.md) — Notion page, workspace, team, people, database, meeting management (26 commands)
 - [`mmk paymint`](../mmk-paymint/SKILL.md) — Payment/invoice management (7 commands)
 - [`mmk threads`](../mmk-threads/SKILL.md) — Threads account data: posts, insights, replies (3 commands)
 - [`mmk youtube`](../mmk-youtube/SKILL.md) — YouTube tools: transcript, metadata, video type (3 commands)
