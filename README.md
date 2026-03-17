@@ -68,7 +68,7 @@ Type `/` in Claude Code to see available skills:
 
 ```
 /mmk-notion             — Notion commands overview (links to sub-commands)
-/mmk-notion-page        — Page invite, revoke, publish, config, duplicate (8 commands)
+/mmk-notion-page        — Page invite, revoke, publish, config, duplicate, markdown, transcript (10 commands)
 /mmk-notion-workspace   — Workspace invite and remove (2 commands)
 /mmk-notion-team        — Team list, invite, remove (3 commands)
 /mmk-notion-subscription — Subscription details (1 command)
@@ -102,8 +102,8 @@ Type `/` in Claude Code to see available skills:
 |-------|------|---------|----------|
 | `mmk-shared` | Background | Auto-loaded | Foundation: auth, flags, errors |
 | **Notion** | | | |
-| `mmk-notion` | Root | `/mmk-notion` | Overview + sub-command links (24 commands total) |
-| `mmk-notion-page` | Sub-command | `/mmk-notion-page` | invite, revoke, publish, unpublish, config, publish-settings, duplicate, list-published |
+| `mmk-notion` | Root | `/mmk-notion` | Overview + sub-command links (26 commands total) |
+| `mmk-notion-page` | Sub-command | `/mmk-notion-page` | invite, revoke, publish, unpublish, config, publish-settings, duplicate, list-published, markdown, transcript |
 | `mmk-notion-workspace` | Sub-command | `/mmk-notion-workspace` | invite, remove |
 | `mmk-notion-team` | Sub-command | `/mmk-notion-team` | list, invite, remove |
 | `mmk-notion-subscription` | Sub-command | `/mmk-notion-subscription` | subscription |
@@ -138,8 +138,8 @@ Type `/` in Claude Code to see available skills:
 
 ```
 mmk-shared (background)              <- Foundation: auth, flags, errors
-├── mmk-notion (root)                <- Overview + tips (24 commands)
-│   ├── mmk-notion-page              <- 8 page commands
+├── mmk-notion (root)                <- Overview + tips (26 commands)
+│   ├── mmk-notion-page              <- 10 page commands
 │   ├── mmk-notion-workspace         <- 2 workspace commands
 │   ├── mmk-notion-team              <- 3 team commands
 │   ├── mmk-notion-subscription      <- 1 subscription command
