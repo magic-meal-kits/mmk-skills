@@ -73,7 +73,7 @@ Type `/` in Claude Code to see available skills:
 /mmk-notion-team        — Team list, invite, remove (3 commands)
 /mmk-notion-subscription — Subscription details (1 command)
 /mmk-notion-people      — List members/guests, guest pages (2 commands)
-/mmk-notion-database    — Schema, query, insert, update, upsert, delete, AI summary (7 commands)
+/mmk-notion-database    — Schema, query, insert, update, upsert, delete, AI summary, AI summary auto (8 commands)
 /mmk-notion-comment     — Page comments: add, list, reply (3 commands)
 /mmk-notion-user        — User details, list workspace users (2 commands)
 /mmk-notion-meeting     — AI meeting notes (1 command)
@@ -105,13 +105,13 @@ Type `/` in Claude Code to see available skills:
 |-------|------|---------|----------|
 | `mmk-shared` | Background | Auto-loaded | Foundation: auth, flags, errors |
 | **Notion** | | | |
-| `mmk-notion` | Root | `/mmk-notion` | Overview + sub-command links (31 commands total) |
+| `mmk-notion` | Root | `/mmk-notion` | Overview + sub-command links (32 commands total) |
 | `mmk-notion-page` | Sub-command | `/mmk-notion-page` | invite, revoke, publish, unpublish, config, publish-settings, duplicate, list-published, markdown, transcript |
 | `mmk-notion-workspace` | Sub-command | `/mmk-notion-workspace` | invite, remove |
 | `mmk-notion-team` | Sub-command | `/mmk-notion-team` | list, invite, remove |
 | `mmk-notion-subscription` | Sub-command | `/mmk-notion-subscription` | subscription |
 | `mmk-notion-people` | Sub-command | `/mmk-notion-people` | list, guest-pages |
-| `mmk-notion-database` | Sub-command | `/mmk-notion-database` | schema, query, insert, update, upsert, delete, ai-summary |
+| `mmk-notion-database` | Sub-command | `/mmk-notion-database` | schema, query, insert, update, upsert, delete, ai-summary, ai-summary-auto |
 | `mmk-notion-comment` | Sub-command | `/mmk-notion-comment` | add, list, reply |
 | `mmk-notion-user` | Sub-command | `/mmk-notion-user` | get, list |
 | `mmk-notion-meeting` | Sub-command | `/mmk-notion-meeting` | list |
@@ -144,13 +144,13 @@ Type `/` in Claude Code to see available skills:
 
 ```
 mmk-shared (background)              <- Foundation: auth, flags, errors
-├── mmk-notion (root)                <- Overview + tips (31 commands)
+├── mmk-notion (root)                <- Overview + tips (32 commands)
 │   ├── mmk-notion-page              <- 10 page commands
 │   ├── mmk-notion-workspace         <- 2 workspace commands
 │   ├── mmk-notion-team              <- 3 team commands
 │   ├── mmk-notion-subscription      <- 1 subscription command
 │   ├── mmk-notion-people            <- 2 people commands
-│   ├── mmk-notion-database          <- 7 database commands
+│   ├── mmk-notion-database          <- 8 database commands
 │   ├── mmk-notion-comment           <- 3 comment commands
 │   ├── mmk-notion-user              <- 2 user commands
 │   └── mmk-notion-meeting           <- 1 meeting command

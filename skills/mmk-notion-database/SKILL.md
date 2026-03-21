@@ -1,6 +1,6 @@
 ---
 name: mmk-notion-database
-description: Manage Notion databases — show property schema, query with filters/sorts, trigger AI summary generation, insert/update/upsert/delete records. Triggers on "database schema", "AI summary", "database properties", "detect AI", "ai-summary", "database structure", "query database", "filter", "sort", "database query", "insert records", "update records", "upsert", "delete pages", "bulk insert", "bulk update", "bulk delete".
+description: Manage Notion databases — show property schema, query with filters/sorts, trigger AI summary generation, insert/update/upsert/delete records. Triggers on "database schema", "AI summary", "database properties", "detect AI", "ai-summary", "ai-summary-auto", "auto AI summary", "database structure", "query database", "filter", "sort", "database query", "insert records", "update records", "upsert", "delete pages", "bulk insert", "bulk update", "bulk delete".
 allowed-tools: Bash(mmk *)
 ---
 
@@ -126,6 +126,26 @@ mmk notion database ai-summary --database-id <db-uuid> --page-id <page-1> --page
 **Optional:** `--workflow-id`
 
 **Limits:** Max 10 page IDs per execution. Use `schema --detect-ai` first to discover `--property-id` and `--workflow-id`.
+
+---
+
+## ai-summary-auto — Auto-discover AI properties and trigger summary generation
+
+Combines schema AI detection and AI summary trigger into a single command. No need to manually find `property-id` or `workflow-id` — they are auto-detected.
+
+```bash
+mmk notion database ai-summary-auto --database-id <db-uuid> --page-id <page-1> --page-id <page-2> -o json
+mmk notion database ai-summary-auto --database-id <db-uuid> --page-id <page-1> --db-page-id <page-from-url> -o json
+mmk notion database ai-summary-auto --database-id <db-uuid> --page-id <page-1> --property-id "B\i_" -o json
+```
+
+**Required:** `--database-id`, `--page-id` (string slice, repeatable — pages to generate summaries for)
+**Optional:**
+
+| Flag | Description |
+|------|-------------|
+| `--db-page-id` | Database page ID for inline databases (optional) |
+| `--property-id` | Filter to specific AI property ID(s) (repeatable) |
 
 ---
 
