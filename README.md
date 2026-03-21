@@ -96,6 +96,7 @@ Type `/` in Claude Code to see available skills:
 /mmk-notion-onboard     — Invite to Notion with Gmail fallback (recipe)
 /mmk-notion-database-ai-summary — Bulk AI summary across database pages (recipe)
 /mmk-notion-meeting-comment — Post structured meeting summary as page comment (recipe)
+/mmk-paymint-notion-schema  — Recommended Notion DB schema for Paymint invoices
 /mmk-paymint-notion-invoice — Batch send Paymint invoices from Notion database (recipe)
 ```
 
@@ -138,6 +139,7 @@ Type `/` in Claude Code to see available skills:
 | `mmk-notion-onboard` | Recipe | Manual only | Multi-step: Notion invite + Gmail signup fallback |
 | `mmk-notion-database-ai-summary` | Recipe | Manual only | Multi-step: Discover AI config + batch summary generation |
 | `mmk-notion-meeting-comment` | Recipe | Manual only | Multi-step: Meeting transcript + structured comment |
+| `mmk-paymint-notion-schema` | Reference | `/mmk-paymint-notion-schema` | Recommended Notion DB schema for Paymint invoices |
 | `mmk-paymint-notion-invoice` | Recipe | Manual only | Multi-step: Notion DB query + batch Paymint invoice send |
 
 ### Architecture
@@ -173,6 +175,7 @@ mmk-shared (background)              <- Foundation: auth, flags, errors
 ├── mmk-notion-onboard (recipe)      <- Notion invite + Gmail fallback
 ├── mmk-notion-database-ai-summary (recipe) <- Bulk AI summary for database
 ├── mmk-notion-meeting-comment (recipe) <- Meeting transcript + summary comment
+├── mmk-paymint-notion-schema (reference) <- Recommended Notion DB schema for invoices
 └── mmk-paymint-notion-invoice (recipe) <- Batch invoice from Notion DB
 ```
 
