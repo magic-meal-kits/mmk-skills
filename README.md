@@ -98,6 +98,7 @@ Type `/` in Claude Code to see available skills:
 /mmk-notion-meeting-comment — Post structured meeting summary as page comment (recipe)
 /mmk-paymint-notion-schema  — Recommended Notion DB schema for Paymint invoices
 /mmk-paymint-notion-invoice — Batch send Paymint invoices from Notion database (recipe)
+/mmk-youtube-channel-summary — Summarize YouTube channel videos into Notion database (recipe)
 ```
 
 ## Skill Inventory
@@ -141,6 +142,7 @@ Type `/` in Claude Code to see available skills:
 | `mmk-notion-meeting-comment` | Recipe | Manual only | Multi-step: Meeting transcript + structured comment |
 | `mmk-paymint-notion-schema` | Reference | `/mmk-paymint-notion-schema` | Recommended Notion DB schema for Paymint invoices |
 | `mmk-paymint-notion-invoice` | Recipe | Manual only | Multi-step: Notion DB query + batch Paymint invoice send |
+| `mmk-youtube-channel-summary` | Recipe | Manual only | Multi-step: RSS fetch + filter Shorts + metadata/transcript + AI summary + Notion upsert |
 
 ### Architecture
 
@@ -176,7 +178,8 @@ mmk-shared (background)              <- Foundation: auth, flags, errors
 ├── mmk-notion-database-ai-summary (recipe) <- Bulk AI summary for database
 ├── mmk-notion-meeting-comment (recipe) <- Meeting transcript + summary comment
 ├── mmk-paymint-notion-schema (reference) <- Recommended Notion DB schema for invoices
-└── mmk-paymint-notion-invoice (recipe) <- Batch invoice from Notion DB
+├── mmk-paymint-notion-invoice (recipe) <- Batch invoice from Notion DB
+└── mmk-youtube-channel-summary (recipe) <- YouTube channel summary to Notion
 ```
 
 - **Background skills** load automatically when relevant context is detected
@@ -219,6 +222,14 @@ mmk-shared (background)              <- Foundation: auth, flags, errors
 ```
 /mmk-youtube-transcript
 > Get the transcript for https://youtube.com/watch?v=abc123
+```
+
+### YouTube: Summarize channel videos to Notion
+
+```
+/mmk-youtube-channel-summary
+> Channels: UC_x5XG1OV2P6uZZ5FSM9Ttw, UCddiUEpeqJcYeBxX1IVBKvQ
+> Database: abc123-def456, last 7 days
 ```
 
 ## Compatibility
