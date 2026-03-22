@@ -1,13 +1,13 @@
 ---
 name: skill-sync
-description: Detect and document CLI changes after a new mmk version. Crawls --help, diffs against SKILL.md files, applies updates. Triggers on "sync skills", "update skill docs", "new cli version", "skill sync", "cli changes".
+description: Detect and document CLI changes after a new mmk version. Crawls --help, diffs against SKILL.md files, applies updates, and raises a PR. Triggers on "sync skills", "update skill docs", "new cli version", "skill sync", "cli changes".
 user-invocable: true
-allowed-tools: Bash(mmk *), Read, Edit, Write, Glob, Grep
+allowed-tools: Bash(mmk *), Bash(git *), Bash(gh *), Read, Edit, Write, Glob, Grep
 ---
 
 # Skill Sync — Detect & Apply CLI Changes
 
-After a new `mmk` CLI version ships, run this skill to find what changed and update the SKILL.md files in this repo.
+After a new `mmk` CLI version ships, run this skill to find what changed, update the SKILL.md files, and raise a PR automatically.
 
 **Diff-only mode:** If the user says "just show the diff" or "dry run", stop after Phase 4.
 
@@ -35,7 +35,7 @@ Build the full command tree by traversing `--help` at every level.
 mmk --help
 ```
 
-Parse the output to extract service names (e.g., `notion`, `paymint`, `threads`, `youtube`, `auth`, `config`). Skip `auth`, `config`, `version`, and `completion` — they are not documented as skills.
+Parse the output to extract service names (e.g., `notion`, `paymint`, `threads`, `youtube`, `auth`, `config`). Skip `auth`, `config`, `version`, `completion`, `doctor`, `plan`, `status`, `upgrade`, and `help` — they are not documented as skills.
 
 ### Step 2b — Sub-commands per service
 
@@ -148,6 +148,10 @@ Compare the CLI tree (Phase 2) against the skill inventory (Phase 3). Report cha
 
 If the user requested diff-only mode, present the report and stop here.
 
+**If there are no changes** (no new services, sub-commands, commands, changed flags, or removed commands), report "No changes detected" and stop. Do not proceed to Phase 5.
+
+**Otherwise, proceed immediately** — do not ask for confirmation.
+
 ---
 
 ## Phase 5: Apply Changes
@@ -199,9 +203,9 @@ Run the CLAUDE.md verification checklist:
 ### 6a — Link integrity
 
 ```bash
-for f in mmk-*/SKILL.md; do
+cd skills && for f in mmk-*/SKILL.md; do
   dir=$(dirname "$f")
-  grep -oP '\.\./mmk-[^)]*SKILL\.md' "$f" 2>/dev/null | while read link; do
+  grep -oE '\.\./mmk-[^)]*SKILL\.md' "$f" 2>/dev/null | while read link; do
     resolved=$(echo "$dir/$link" | sed 's|[^/]*/\.\./||g')
     [ ! -f "$resolved" ] && echo "BROKEN: $f -> $link"
   done
@@ -224,6 +228,71 @@ Verify that command counts agree across:
 - `README.md` Skill Inventory table and Architecture tree
 
 Report any failures and fix them.
+
+---
+
+## Phase 7: Commit & Pull Request
+
+After verification passes, automatically create a branch, commit, push, and open a PR.
+
+### 7a — Create branch and commit
+
+```bash
+git checkout -b skill-sync/v{version}
+git add -A skills/ README.md
+git commit -m "feat: sync skill docs with mmk CLI v{version}"
+```
+
+Use a descriptive commit message summarizing the changes (e.g., "feat: add notion page get and update commands for v{version}").
+
+### 7b — Push and create PR
+
+```bash
+git push -u origin skill-sync/v{version}
+```
+
+Create the PR using `gh` with the skill-sync template. Fill in the template placeholders from the Phase 4 diff report:
+
+```bash
+gh pr create \
+  --title "feat: skill sync for mmk v{version}" \
+  --body "$(cat <<'EOF'
+## Summary
+- Sync skill docs with mmk CLI **v{version}** (commit `{cli_commit}`)
+- {one-line change summary, e.g., "Add 2 new notion page commands: get, update"}
+
+## Skill Sync Report
+
+### New Services
+{new_services_table or "None"}
+
+### New Sub-commands
+{new_subcommands_table or "None"}
+
+### New Commands
+{new_commands_table or "None"}
+
+### Changed Flags
+{changed_flags_table or "None"}
+
+### Removed Commands (MANUAL REVIEW)
+{removed_commands_table or "None"}
+
+## Files Changed
+{bullet list of modified files}
+
+## Test plan
+- [ ] Verify new commands: `mmk {command} --help` matches documented flags
+- [ ] Verify link integrity: all `../mmk-*/SKILL.md` paths resolve
+- [ ] Verify command counts consistent across root, shared, and README
+- [ ] Verify frontmatter: name, description, allowed-tools present
+EOF
+)"
+```
+
+### 7c — Report the PR URL
+
+Print the PR URL so the user can review it.
 
 ---
 
@@ -254,15 +323,15 @@ Agent: Checking CLI version...
        ### Removed Commands
        (None)
 
-       Shall I apply these changes?
-
-User: yes
-
-Agent: [Updates mmk-notion-database/SKILL.md with new commands]
+       Applying changes...
+       [Updates mmk-notion-database/SKILL.md with new commands]
        [Updates mmk-notion/SKILL.md count: 20 -> 22]
        [Updates mmk-shared/SKILL.md count: 20 -> 22]
        [Updates README.md counts]
 
        Running verification...
        All checks passed.
+
+       Creating PR...
+       https://github.com/magic-meal-kits/mmk-skills/pull/22
 ```
