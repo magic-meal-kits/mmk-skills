@@ -1,6 +1,6 @@
 ---
 name: mmk-notion-page
-description: Manage Notion pages — invite, revoke, publish, unpublish, config, publish-settings, duplicate, list-published, markdown, transcript. Triggers on "invite to page", "revoke access", "publish page", "unpublish", "page config", "full width", "publish settings", "duplicate page", "list published", "page markdown", "page transcript", "meeting transcript".
+description: Manage Notion pages — invite, revoke, publish, unpublish, config, publish-settings, duplicate, list-published, markdown, transcript, get, update. Triggers on "invite to page", "revoke access", "publish page", "unpublish", "page config", "full width", "publish settings", "duplicate page", "list published", "page markdown", "page transcript", "meeting transcript", "get page", "page by id", "update page", "archive page", "lock page", "erase page".
 allowed-tools: Bash(mmk *)
 ---
 
@@ -122,6 +122,16 @@ mmk notion page markdown <page_id> -o json
 
 ---
 
+## get — Get a page by ID
+
+```bash
+mmk notion page get <page_id> -o json
+```
+
+**Required:** `<page_id>` (positional — accepts UUID or full Notion URL)
+
+---
+
 ## transcript — Get meeting note transcript, summary, and notes from a page
 
 ```bash
@@ -131,6 +141,35 @@ mmk notion page transcript <page_id> --include summary,notes -o json
 
 **Required:** `<page_id>` (positional)
 **Optional:** `--include` — sections to include: `summary`, `notes`, `transcript` (comma-separated, default: all)
+
+---
+
+## update — Update a Notion page (archive, trash, lock, erase content)
+
+```bash
+mmk notion page update <page_id> --archive -o json
+mmk notion page update <page_id> --lock -o json
+mmk notion page update <page_id> --erase-content --yes -o json
+mmk notion page update <page_id> --data '{"properties": {...}}' -o json
+```
+
+**Required:** `<page_id>` (positional)
+
+**Optional flags:**
+
+| Flag | Description |
+|------|-------------|
+| `--archive` | Archive the page |
+| `--unarchive` | Unarchive the page |
+| `--trash` | Move page to trash |
+| `--restore` | Restore page from trash |
+| `--lock` | Lock page editing |
+| `--unlock` | Unlock page editing |
+| `--erase-content` | Erase all page content (DESTRUCTIVE, cannot be undone) |
+| `--data` | Raw JSON request body (Notion API format) |
+| `-y, --yes` | Skip confirmation for destructive operations |
+
+**WARNING:** `--erase-content` permanently deletes all page content and cannot be undone via API.
 
 ---
 
