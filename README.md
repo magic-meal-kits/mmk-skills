@@ -68,7 +68,7 @@ Type `/` in Claude Code to see available skills:
 
 ```
 /mmk-notion             — Notion commands overview (links to sub-commands)
-/mmk-notion-page        — Page invite, revoke, publish, config, duplicate, markdown, transcript, get, update (12 commands)
+/mmk-notion-page        — Page invite, revoke, publish, config, duplicate, markdown, transcript, get, update, update-markdown (13 commands)
 /mmk-notion-workspace   — Workspace invite and remove (2 commands)
 /mmk-notion-team        — Team list, invite, remove (3 commands)
 /mmk-notion-subscription — Subscription details (1 command)
@@ -77,6 +77,8 @@ Type `/` in Claude Code to see available skills:
 /mmk-notion-comment     — Page comments: add, list, reply (3 commands)
 /mmk-notion-user        — User details, list workspace users (2 commands)
 /mmk-notion-meeting     — AI meeting notes (1 command)
+/mmk-notion-emoji       — Custom workspace emojis (1 command)
+/mmk-notion-view        — Database views: list, get, create, update, delete (5 commands)
 /mmk-paymint            — Paymint overview + license resolution + errors
 /mmk-paymint-licenses   — List licenses
 /mmk-paymint-send       — Send invoice
@@ -107,8 +109,8 @@ Type `/` in Claude Code to see available skills:
 |-------|------|---------|----------|
 | `mmk-shared` | Background | Auto-loaded | Foundation: auth, flags, errors |
 | **Notion** | | | |
-| `mmk-notion` | Root | `/mmk-notion` | Overview + sub-command links (34 commands total) |
-| `mmk-notion-page` | Sub-command | `/mmk-notion-page` | invite, revoke, publish, unpublish, config, publish-settings, duplicate, list-published, markdown, transcript, get, update |
+| `mmk-notion` | Root | `/mmk-notion` | Overview + sub-command links (41 commands total) |
+| `mmk-notion-page` | Sub-command | `/mmk-notion-page` | invite, revoke, publish, unpublish, config, publish-settings, duplicate, list-published, markdown, transcript, get, update, update-markdown |
 | `mmk-notion-workspace` | Sub-command | `/mmk-notion-workspace` | invite, remove |
 | `mmk-notion-team` | Sub-command | `/mmk-notion-team` | list, invite, remove |
 | `mmk-notion-subscription` | Sub-command | `/mmk-notion-subscription` | subscription |
@@ -117,6 +119,8 @@ Type `/` in Claude Code to see available skills:
 | `mmk-notion-comment` | Sub-command | `/mmk-notion-comment` | add, list, reply |
 | `mmk-notion-user` | Sub-command | `/mmk-notion-user` | get, list |
 | `mmk-notion-meeting` | Sub-command | `/mmk-notion-meeting` | list |
+| `mmk-notion-emoji` | Sub-command | `/mmk-notion-emoji` | list |
+| `mmk-notion-view` | Sub-command | `/mmk-notion-view` | list, get, create, update, delete |
 | **Paymint** | | | |
 | `mmk-paymint` | Root | `/mmk-paymint` | Overview + license resolution + errors (7 commands total) |
 | `mmk-paymint-licenses` | Sub-command | `/mmk-paymint-licenses` | licenses |
@@ -148,8 +152,8 @@ Type `/` in Claude Code to see available skills:
 
 ```
 mmk-shared (background)              <- Foundation: auth, flags, errors
-├── mmk-notion (root)                <- Overview + tips (34 commands)
-│   ├── mmk-notion-page              <- 12 page commands
+├── mmk-notion (root)                <- Overview + tips (41 commands)
+│   ├── mmk-notion-page              <- 13 page commands
 │   ├── mmk-notion-workspace         <- 2 workspace commands
 │   ├── mmk-notion-team              <- 3 team commands
 │   ├── mmk-notion-subscription      <- 1 subscription command
@@ -157,7 +161,9 @@ mmk-shared (background)              <- Foundation: auth, flags, errors
 │   ├── mmk-notion-database          <- 8 database commands
 │   ├── mmk-notion-comment           <- 3 comment commands
 │   ├── mmk-notion-user              <- 2 user commands
-│   └── mmk-notion-meeting           <- 1 meeting command
+│   ├── mmk-notion-meeting           <- 1 meeting command
+│   ├── mmk-notion-emoji             <- 1 emoji command
+│   └── mmk-notion-view              <- 5 view commands
 ├── mmk-paymint (root)               <- Overview + license resolution + errors (7 commands)
 │   ├── mmk-paymint-licenses         <- List licenses
 │   ├── mmk-paymint-send             <- Send invoice

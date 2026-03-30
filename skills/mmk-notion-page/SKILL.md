@@ -173,6 +173,27 @@ mmk notion page update <page_id> --data '{"properties": {...}}' -o json
 
 ---
 
+## update-markdown — Update a page's content using markdown
+
+```bash
+mmk notion page update-markdown <page_id> --markdown "# New Content" -o json
+mmk notion page update-markdown <page_id> --append "## Appended Section" -o json
+mmk notion page update-markdown <page_id> --replace "# Replaced Content" --timezone "Asia/Seoul" -o json
+```
+
+**Required:** `<page_id>` (positional), one of `--markdown`, `--append`, or `--replace`
+
+**Optional flags:**
+
+| Flag | Description |
+|------|-------------|
+| `--markdown` | Full markdown content (replaces all existing content) |
+| `--append` | Markdown to append to existing content |
+| `--replace` | Markdown to replace all content (uses replace_content operation) |
+| `--timezone` | Timezone for date-related content (e.g. `Asia/Seoul`) |
+
+---
+
 ## Tips
 
 1. `--block-id` accepts both raw UUIDs and full Notion URLs — the CLI extracts the ID automatically
