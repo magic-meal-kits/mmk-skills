@@ -1,6 +1,6 @@
 ---
 name: mmk-notion
-description: This skill should be used when the user asks to manage Notion pages, workspaces, teams, people, databases, meetings, comments, users, publishing, subscriptions, or any Notion-related operation using the mmk CLI. Triggers on phrases like "invite to Notion", "publish page", "revoke access", "list teams", "database schema", "AI summary", "meeting notes", "workspace members", "duplicate page", "page config", "publish settings", "list published", "guest pages", "subscription", "add comment", "reply to comment", "list users", "get user", "get page", "update page", "archive page", "lock page".
+description: This skill should be used when the user asks to manage Notion pages, workspaces, teams, people, databases, meetings, comments, users, publishing, subscriptions, emojis, views, or any Notion-related operation using the mmk CLI. Triggers on phrases like "invite to Notion", "publish page", "revoke access", "list teams", "database schema", "AI summary", "meeting notes", "workspace members", "duplicate page", "page config", "publish settings", "list published", "guest pages", "subscription", "add comment", "reply to comment", "list users", "get user", "get page", "update page", "archive page", "lock page", "update markdown", "custom emoji", "database view", "list views".
 allowed-tools: Bash(mmk *)
 ---
 
@@ -16,7 +16,7 @@ Always use `-o json` when parsing results or composing with other commands.
 
 | Sub-command | Description | Skill |
 |-------------|-------------|-------|
-| `page` | Invite, revoke, publish, unpublish, config, publish-settings, duplicate, list-published, markdown, transcript, get, update (12 commands) | [`mmk-notion-page`](../mmk-notion-page/SKILL.md) |
+| `page` | Invite, revoke, publish, unpublish, config, publish-settings, duplicate, list-published, markdown, transcript, get, update, update-markdown (13 commands) | [`mmk-notion-page`](../mmk-notion-page/SKILL.md) |
 | `workspace` | Invite users to workspace, remove from workspace (2 commands) | [`mmk-notion-workspace`](../mmk-notion-workspace/SKILL.md) |
 | `team` | List teams, invite to team, remove from team (3 commands) | [`mmk-notion-team`](../mmk-notion-team/SKILL.md) |
 | `subscription` | Show workspace subscription details (1 command) | [`mmk-notion-subscription`](../mmk-notion-subscription/SKILL.md) |
@@ -25,6 +25,8 @@ Always use `-o json` when parsing results or composing with other commands.
 | `comment` | Add, list, reply page comments (3 commands) | [`mmk-notion-comment`](../mmk-notion-comment/SKILL.md) |
 | `user` | Get user details, list workspace users (2 commands) | [`mmk-notion-user`](../mmk-notion-user/SKILL.md) |
 | `meeting` | List AI meeting notes (1 command) | [`mmk-notion-meeting`](../mmk-notion-meeting/SKILL.md) |
+| `emoji` | List custom workspace emojis (1 command) | [`mmk-notion-emoji`](../mmk-notion-emoji/SKILL.md) |
+| `view` | List, get, create, update, delete database views (5 commands) | [`mmk-notion-view`](../mmk-notion-view/SKILL.md) |
 
 ## Tips
 
