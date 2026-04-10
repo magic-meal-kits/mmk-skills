@@ -112,15 +112,41 @@ mmk config get server
 
 ## 3단계: 인증
 
-MMK CLI는 토큰 기반 인증을 사용합니다.
+MMK CLI는 토큰 기반 인증을 사용합니다. 환경에 따라 인증 방법이 다릅니다.
 
-### 대화형 로그인
+> **상세 가이드:** 인증 방법, long-lived 토큰 발급, 환경별 설정에 대한 자세한 내용은 [MMK CLI 인증 가이드](./mmk-auth-guide-ko.md)를 참고하세요.
+
+### Claude Code 웹 환경 권장 방식: Long-Lived 토큰
+
+Claude Code 웹은 세션마다 환경이 초기화되므로, **long-lived 토큰**을 사용하는 것이 가장 편리합니다.
+
+**1단계: 로컬 PC에서 토큰 발급** (브라우저가 있는 환경에서 1회 수행)
+
+```bash
+mmk auth login                                    # 브라우저로 인증
+mmk auth token --create --name "claude-code-web"   # long-lived 토큰 발급 (유효기간 1년)
+```
+
+**2단계: Claude Code 웹에서 토큰 주입**
+
+```bash
+mkdir -p ~/.config/mmk
+cat > ~/.config/mmk/config.yaml <<YAML
+server: https://your-server-url.com
+token: mmk_tok_xxxxxxxxxxxxxxxxxx
+YAML
+```
+
+또는 환경변수 `MMK_AUTH_TOKEN`으로 설정하고 SessionStart Hook에서 자동 주입합니다 ([5단계](#5단계-sessionstart-hook-설정) 참고).
+
+### 대안: Device Flow (브라우저 없이 로그인)
+
+로컬 PC 없이 Claude Code 웹에서 직접 인증할 수도 있습니다. `mmk auth login`은 브라우저가 없으면 **device flow**로 자동 전환되어, 출력된 URL과 코드를 다른 기기의 브라우저에서 입력하면 됩니다.
 
 ```bash
 mmk auth login
+# 출력되는 URL을 스마트폰이나 다른 PC 브라우저에서 열고 코드 입력
 ```
-
-브라우저 기반 인증 플로우가 시작됩니다. Claude Code 웹 환경에서는 출력되는 URL을 별도 브라우저 탭에서 열어 인증을 완료합니다.
 
 ### 인증 상태 확인
 
@@ -135,8 +161,6 @@ mmk auth status
 ```
 ~/.config/mmk/config.yaml
 ```
-
-> **팁:** 세션 간 토큰을 유지하려면 해당 파일의 토큰 값을 별도로 보관해 두고, SessionStart Hook에서 복원할 수 있습니다.
 
 ---
 
