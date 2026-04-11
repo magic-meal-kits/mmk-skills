@@ -17,10 +17,9 @@ Always use `-o json` when parsing results or composing with other commands.
 
 ```bash
 mmk notion team list -o json
-mmk notion team list --type All -o json
 ```
 
-**Optional:** `--type` — `Joined` (default), `Pending`, or `All`
+No additional flags required.
 
 ---
 
