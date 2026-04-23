@@ -7,7 +7,7 @@
 
 # MMK Skills
 
-Agent skills for automating [Magic Meal Kits](https://magicmealkits.com) CLI operations. Covers Notion, Paymint, Threads, and YouTube. Works with Claude Code, Gemini CLI, OpenCode, Codex, Cursor, and [38+ agents](https://github.com/nichochar/skills).
+Agent skills for automating [Magic Meal Kits](https://magicmealkits.com) CLI operations. Covers Notion, Paymint, Threads, YouTube, and Plaud. Works with Claude Code, Gemini CLI, OpenCode, Codex, Cursor, and [38+ agents](https://github.com/nichochar/skills).
 
 ## Getting Started
 
@@ -46,12 +46,14 @@ npx skills add https://github.com/magic-meal-kits/mmk-skills/tree/main/skills/mm
 npx skills add https://github.com/magic-meal-kits/mmk-skills/tree/main/skills/mmk-paymint
 npx skills add https://github.com/magic-meal-kits/mmk-skills/tree/main/skills/mmk-threads
 npx skills add https://github.com/magic-meal-kits/mmk-skills/tree/main/skills/mmk-youtube
+npx skills add https://github.com/magic-meal-kits/mmk-skills/tree/main/skills/mmk-plaud
 
 # Or install individual sub-commands only
 npx skills add https://github.com/magic-meal-kits/mmk-skills/tree/main/skills/mmk-notion-page
 npx skills add https://github.com/magic-meal-kits/mmk-skills/tree/main/skills/mmk-paymint-send
 npx skills add https://github.com/magic-meal-kits/mmk-skills/tree/main/skills/mmk-threads-posts
 npx skills add https://github.com/magic-meal-kits/mmk-skills/tree/main/skills/mmk-youtube-transcript
+npx skills add https://github.com/magic-meal-kits/mmk-skills/tree/main/skills/mmk-plaud-file
 ```
 
 ```bash
@@ -95,6 +97,12 @@ Type `/` in Claude Code to see available skills:
 /mmk-youtube-metadata   — Video metadata
 /mmk-youtube-videotype  — Video vs Short
 /mmk-youtube-transcript — Video transcript
+/mmk-plaud              — Plaud overview + credential overrides (24 commands)
+/mmk-plaud-file         — File list/get, audio URL, transcript, summary, transsumm, rename, organize (8 commands)
+/mmk-plaud-search       — Search transcripts and filenames (1 command)
+/mmk-plaud-user         — Plaud user profile (1 command)
+/mmk-plaud-doctor       — Connectivity check (1 command)
+/mmk-plaud-admin        — Low-level passthroughs: ai, combine, config, device, file, membership, search, tag, trans-quota, user (13 commands)
 /mmk-notion-onboard     — Invite to Notion with Gmail fallback (recipe)
 /mmk-notion-database-ai-summary — Bulk AI summary across database pages (recipe)
 /mmk-notion-meeting-comment — Post structured meeting summary as page comment (recipe)
@@ -140,6 +148,13 @@ Type `/` in Claude Code to see available skills:
 | `mmk-youtube-metadata` | Sub-command | `/mmk-youtube-metadata` | metadata |
 | `mmk-youtube-videotype` | Sub-command | `/mmk-youtube-videotype` | videotype |
 | `mmk-youtube-transcript` | Sub-command | `/mmk-youtube-transcript` | transcript |
+| **Plaud** | | | |
+| `mmk-plaud` | Root | `/mmk-plaud` | Overview + credential overrides (24 commands total) |
+| `mmk-plaud-file` | Sub-command | `/mmk-plaud-file` | list, get, audio-url, transcript, summary, transsumm, rename, organize |
+| `mmk-plaud-search` | Sub-command | `/mmk-plaud-search` | search |
+| `mmk-plaud-user` | Sub-command | `/mmk-plaud-user` | me |
+| `mmk-plaud-doctor` | Sub-command | `/mmk-plaud-doctor` | doctor |
+| `mmk-plaud-admin` | Sub-command | `/mmk-plaud-admin` | ai, combine, config, device, file, membership, search, tag, trans-quota, user (13 commands) |
 | **Recipes** | | | |
 | `mmk-notion-onboard` | Recipe | Manual only | Multi-step: Notion invite + Gmail signup fallback |
 | `mmk-notion-database-ai-summary` | Recipe | Manual only | Multi-step: Discover AI config + batch summary generation |
@@ -180,6 +195,12 @@ mmk-shared (background)              <- Foundation: auth, flags, errors
 │   ├── mmk-youtube-metadata         <- Video metadata
 │   ├── mmk-youtube-videotype        <- Video vs Short
 │   └── mmk-youtube-transcript       <- Video transcript
+├── mmk-plaud (root)                 <- Plaud overview + credential overrides (24 commands)
+│   ├── mmk-plaud-file               <- 8 file commands (list, get, audio-url, transcript, summary, transsumm, rename, organize)
+│   ├── mmk-plaud-search             <- Search transcripts and filenames
+│   ├── mmk-plaud-user               <- Plaud user profile
+│   ├── mmk-plaud-doctor             <- Connectivity check (token + user + devices)
+│   └── mmk-plaud-admin              <- 13 low-level passthroughs (ai, combine, config, device, file, membership, search, tag, trans-quota, user)
 ├── mmk-notion-onboard (recipe)      <- Notion invite + Gmail fallback
 ├── mmk-notion-database-ai-summary (recipe) <- Bulk AI summary for database
 ├── mmk-notion-meeting-comment (recipe) <- Meeting transcript + summary comment
@@ -236,6 +257,13 @@ mmk-shared (background)              <- Foundation: auth, flags, errors
 /mmk-youtube-channel-summary
 > Channels: UC_x5XG1OV2P6uZZ5FSM9Ttw, UCddiUEpeqJcYeBxX1IVBKvQ
 > Database: abc123-def456, last 7 days
+```
+
+### Plaud: List recent recordings with transcripts and summaries
+
+```
+/mmk-plaud-file
+> List my 10 most recent recordings with transcripts and summaries attached
 ```
 
 ## Compatibility
