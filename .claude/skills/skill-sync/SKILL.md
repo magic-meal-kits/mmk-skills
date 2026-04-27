@@ -13,15 +13,16 @@ After a new `mmk` CLI version ships, run this skill to find what changed, update
 
 ---
 
-## Phase 1: Version Check
+## Phase 1: Upgrade & Version Check
 
-Get the current CLI version:
+First, upgrade the CLI to the latest version, then confirm the version:
 
 ```bash
+mmk upgrade
 mmk version -o json
 ```
 
-Report the version to the user before continuing.
+Report the upgraded version (old → new) to the user before continuing. If already on the latest version, report the current version and proceed.
 
 ---
 
@@ -205,8 +206,12 @@ Run the CLAUDE.md verification checklist:
 ```bash
 cd skills && for f in mmk-*/SKILL.md; do
   dir=$(dirname "$f")
-  grep -oE '\.\./mmk-[^)]*SKILL\.md' "$f" 2>/dev/null | while read link; do
-    resolved=$(echo "$dir/$link" | sed 's|[^/]*/\.\./||g')
+  # Extract links from href part only: ](../mmk-xxx/SKILL.md)
+  grep -oE '\]\(\.\./mmk-[^)]+/SKILL\.md\)' "$f" 2>/dev/null | sed 's/^](\(.*\))$/\1/' | while read link; do
+    resolved="$dir/$link"
+    while echo "$resolved" | grep -q '[^/]*/\.\./'; do
+      resolved=$(echo "$resolved" | sed 's|[^/]*/\.\./||')
+    done
     [ ! -f "$resolved" ] && echo "BROKEN: $f -> $link"
   done
 done
