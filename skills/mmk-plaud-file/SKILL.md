@@ -1,6 +1,6 @@
 ---
 name: mmk-plaud-file
-description: Manage Plaud recordings — list, get detail, audio URL, rename, organize into folders, fetch transcript/summary, trigger auto transcript+summary. Triggers on "plaud file", "plaud recordings", "list plaud files", "plaud transcript", "plaud summary", "plaud audio url", "rename plaud recording", "organize plaud", "plaud transsumm", "auto transcript summary".
+description: Manage Plaud recordings — list, get detail, audio URL, download, rename, organize into folders, fetch transcript/summary, trigger auto transcript+summary. Triggers on "plaud file", "plaud recordings", "list plaud files", "plaud transcript", "plaud summary", "plaud audio url", "download plaud audio", "download recording", "rename plaud recording", "organize plaud", "plaud transsumm", "auto transcript summary".
 allowed-tools: Bash(mmk *)
 ---
 
@@ -64,6 +64,31 @@ mmk plaud file audio-url <file_id> -o json
 ```
 
 **Required:** `<file_id>` (positional)
+
+---
+
+## download — Download the audio file to disk via the signed URL
+
+```bash
+mmk plaud file download <file_id>
+mmk plaud file download <file_id> --out ./recordings/
+mmk plaud file download <file_id> --out my-note.ogg --force
+mmk plaud file download <file_id> --quiet
+```
+
+**Required:** `<file_id>` (positional)
+
+**Optional:**
+
+| Flag | Default | Description |
+|------|---------|-------------|
+| `--out` | current directory (auto-named) | Output file or directory path |
+| `--force` | false | Overwrite if the target file already exists |
+| `--quiet` | false | Suppress progress output; print only the saved path |
+
+Default filename: `{file_name}.{ext}` where `file_name` comes from the recording's metadata (non-filesystem-safe characters stripped) and `ext` is parsed from the signed URL path. Falls back to `{file_id}.ogg` when the name is empty.
+
+The file is streamed directly from S3 to disk — the server only returns the signed URL and does not proxy the bytes.
 
 ---
 
