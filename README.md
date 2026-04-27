@@ -70,7 +70,7 @@ Type `/` in Claude Code to see available skills:
 
 ```
 /mmk-notion             — Notion commands overview (links to sub-commands)
-/mmk-notion-page        — Page invite, revoke, publish, config, duplicate, markdown, transcript, get, update, update-markdown (13 commands)
+/mmk-notion-page        — Page invite, revoke, publish, config, duplicate, markdown get/create/append/replace/update, transcript, get, update (16 commands)
 /mmk-notion-workspace   — Workspace invite and remove (2 commands)
 /mmk-notion-team        — Team list, invite, remove (3 commands)
 /mmk-notion-subscription — Subscription details (1 command)
@@ -97,8 +97,8 @@ Type `/` in Claude Code to see available skills:
 /mmk-youtube-metadata   — Video metadata
 /mmk-youtube-videotype  — Video vs Short
 /mmk-youtube-transcript — Video transcript
-/mmk-plaud              — Plaud overview + credential overrides (24 commands)
-/mmk-plaud-file         — File list/get, audio URL, transcript, summary, transsumm, rename, organize (8 commands)
+/mmk-plaud              — Plaud overview + credential overrides (25 commands)
+/mmk-plaud-file         — File list/get, audio URL, download, transcript, summary, transsumm, rename, organize (9 commands)
 /mmk-plaud-search       — Search transcripts and filenames (1 command)
 /mmk-plaud-user         — Plaud user profile (1 command)
 /mmk-plaud-doctor       — Connectivity check (1 command)
@@ -117,8 +117,8 @@ Type `/` in Claude Code to see available skills:
 |-------|------|---------|----------|
 | `mmk-shared` | Background | Auto-loaded | Foundation: auth, flags, errors |
 | **Notion** | | | |
-| `mmk-notion` | Root | `/mmk-notion` | Overview + sub-command links (41 commands total) |
-| `mmk-notion-page` | Sub-command | `/mmk-notion-page` | invite, revoke, publish, unpublish, config, publish-settings, duplicate, list-published, markdown, transcript, get, update, update-markdown |
+| `mmk-notion` | Root | `/mmk-notion` | Overview + sub-command links (44 commands total) |
+| `mmk-notion-page` | Sub-command | `/mmk-notion-page` | invite, revoke, publish, unpublish, config, publish-settings, duplicate, list-published, markdown get/create/append/replace/update, transcript, get, update |
 | `mmk-notion-workspace` | Sub-command | `/mmk-notion-workspace` | invite, remove |
 | `mmk-notion-team` | Sub-command | `/mmk-notion-team` | list, invite, remove |
 | `mmk-notion-subscription` | Sub-command | `/mmk-notion-subscription` | subscription |
@@ -149,8 +149,8 @@ Type `/` in Claude Code to see available skills:
 | `mmk-youtube-videotype` | Sub-command | `/mmk-youtube-videotype` | videotype |
 | `mmk-youtube-transcript` | Sub-command | `/mmk-youtube-transcript` | transcript |
 | **Plaud** | | | |
-| `mmk-plaud` | Root | `/mmk-plaud` | Overview + credential overrides (24 commands total) |
-| `mmk-plaud-file` | Sub-command | `/mmk-plaud-file` | list, get, audio-url, transcript, summary, transsumm, rename, organize |
+| `mmk-plaud` | Root | `/mmk-plaud` | Overview + credential overrides (25 commands total) |
+| `mmk-plaud-file` | Sub-command | `/mmk-plaud-file` | list, get, audio-url, download, transcript, summary, transsumm, rename, organize |
 | `mmk-plaud-search` | Sub-command | `/mmk-plaud-search` | search |
 | `mmk-plaud-user` | Sub-command | `/mmk-plaud-user` | me |
 | `mmk-plaud-doctor` | Sub-command | `/mmk-plaud-doctor` | doctor |
@@ -167,8 +167,8 @@ Type `/` in Claude Code to see available skills:
 
 ```
 mmk-shared (background)              <- Foundation: auth, flags, errors
-├── mmk-notion (root)                <- Overview + tips (41 commands)
-│   ├── mmk-notion-page              <- 13 page commands
+├── mmk-notion (root)                <- Overview + tips (44 commands)
+│   ├── mmk-notion-page              <- 16 page commands
 │   ├── mmk-notion-workspace         <- 2 workspace commands
 │   ├── mmk-notion-team              <- 3 team commands
 │   ├── mmk-notion-subscription      <- 1 subscription command
@@ -195,8 +195,8 @@ mmk-shared (background)              <- Foundation: auth, flags, errors
 │   ├── mmk-youtube-metadata         <- Video metadata
 │   ├── mmk-youtube-videotype        <- Video vs Short
 │   └── mmk-youtube-transcript       <- Video transcript
-├── mmk-plaud (root)                 <- Plaud overview + credential overrides (24 commands)
-│   ├── mmk-plaud-file               <- 8 file commands (list, get, audio-url, transcript, summary, transsumm, rename, organize)
+├── mmk-plaud (root)                 <- Plaud overview + credential overrides (25 commands)
+│   ├── mmk-plaud-file               <- 9 file commands (list, get, audio-url, download, transcript, summary, transsumm, rename, organize)
 │   ├── mmk-plaud-search             <- Search transcripts and filenames
 │   ├── mmk-plaud-user               <- Plaud user profile
 │   ├── mmk-plaud-doctor             <- Connectivity check (token + user + devices)

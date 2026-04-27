@@ -16,7 +16,7 @@ Always use `-o json` when parsing results or composing with other commands.
 
 | Sub-command | Description | Skill |
 |-------------|-------------|-------|
-| `file` | List/inspect recordings, get audio URL, rename, organize into folders, fetch transcripts/summaries, trigger auto transcript+summary (8 commands) | [`mmk-plaud-file`](../mmk-plaud-file/SKILL.md) |
+| `file` | List/inspect recordings, get audio URL, download, rename, organize into folders, fetch transcripts/summaries, trigger auto transcript+summary (9 commands) | [`mmk-plaud-file`](../mmk-plaud-file/SKILL.md) |
 | `search` | Search transcripts and filenames (1 command) | [`mmk-plaud-search`](../mmk-plaud-search/SKILL.md) |
 | `user` | Show current Plaud user profile (1 command) | [`mmk-plaud-user`](../mmk-plaud-user/SKILL.md) |
 | `doctor` | Connectivity check: validates token and lists user/devices (1 command) | [`mmk-plaud-doctor`](../mmk-plaud-doctor/SKILL.md) |
