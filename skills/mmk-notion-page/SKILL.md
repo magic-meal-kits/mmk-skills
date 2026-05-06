@@ -1,6 +1,6 @@
 ---
 name: mmk-notion-page
-description: Manage Notion pages — invite, revoke, publish, unpublish, config, publish-settings, duplicate, list-published, markdown get/create/append/replace/update, transcript, get, update. Triggers on "invite to page", "revoke access", "publish page", "unpublish", "page config", "full width", "publish settings", "duplicate page", "list published", "page markdown", "create page from markdown", "append markdown", "replace markdown", "update markdown", "page transcript", "meeting transcript", "get page", "page by id", "update page", "archive page", "lock page", "erase page".
+description: Manage Notion pages — invite, revoke, publish, unpublish, config, publish-settings, duplicate, list-published, markdown (get/create/append/replace/update), transcript, get, update. Triggers on "invite to page", "revoke access", "publish page", "unpublish", "page config", "full width", "publish settings", "duplicate page", "list published", "page markdown", "create page from markdown", "append markdown", "replace markdown", "update markdown", "page transcript", "meeting transcript", "get page", "page by id", "update page", "archive page", "lock page", "erase page".
 allowed-tools: Bash(mmk *)
 ---
 
@@ -112,6 +112,10 @@ mmk notion page list-published --type forms -o json
 
 ---
 
+## markdown — Verb-based sub-commands (get, create, append, replace, update)
+
+`markdown` is a sub-command group. All verbs accept `--markdown` (inline string), `--file` (read from file), or stdin.
+
 ## markdown get — Retrieve a Notion page as markdown
 
 ```bash
@@ -211,6 +215,60 @@ mmk notion page markdown update <page_id> --data '[{"old_str":"x","new_str":"y",
 
 Matching is case-sensitive and whitespace-sensitive. Each `old_str` must match exactly one location unless `--all` is set.
 
+**Optional:**
+
+| Flag | Description |
+|------|-------------|
+| `--markdown` | Inline markdown to append |
+| `--file` | Read markdown from a file |
+| `--after` | Ellipsis selector `'start text...end text'` — insert after this anchor (omit to append at end) |
+
+---
+
+### markdown replace — Overwrite an existing Notion page with new markdown
+
+```bash
+mmk notion page markdown replace <page_id> --markdown "# Fresh start" -o json
+mmk notion page markdown replace <page_id> --file ./new.md --yes -o json
+```
+
+**Required:** `<page_id>` (positional)
+
+**Optional:**
+
+| Flag | Description |
+|------|-------------|
+| `--markdown` | Inline markdown body |
+| `--file` | Read markdown from a file |
+| `-y, --yes` | Skip the destructive-overwrite confirmation prompt |
+| `--allow-deleting-content` | Permit removal of child pages/databases |
+
+DESTRUCTIVE — replaces all page content. Prompts for confirmation when run interactively (use `--yes` or pipe stdin to suppress).
+
+---
+
+### markdown update — Edit a page in place via search-and-replace
+
+```bash
+mmk notion page markdown update <page_id> --from "Draft" --to "Final" -o json
+mmk notion page markdown update <page_id> --from "TODO" --to "DONE" --from "Draft" --to "Final" -o json
+mmk notion page markdown update <page_id> --data '[{"old_str":"x","new_str":"y","replace_all_matches":true}]' -o json
+```
+
+**Required:** `<page_id>` (positional), `--from` + `--to` (paired), or `--data`
+
+**Optional:**
+
+| Flag | Description |
+|------|-------------|
+| `--from` | Old text to find (repeatable, paired with `--to`) |
+| `--to` | New text to substitute (repeatable, paired with `--from`) |
+| `--all` | Set `replace_all_matches=true` on every operation |
+| `--data` | Raw JSON array of `{old_str, new_str, replace_all_matches}` |
+| `--allow-deleting-content` | Permit removal of child pages/databases |
+
+Matching is case-sensitive and whitespace-sensitive.
+
 ---
 
 ## get — Get a page by ID
@@ -266,7 +324,9 @@ mmk notion page update <page_id> --data '{"properties": {...}}' -o json
 
 ## update-markdown — [DEPRECATED] Update a page's content using markdown
 
-> **Deprecated.** Use `mmk notion page markdown replace`, `mmk notion page markdown append`, or `mmk notion page markdown update` instead.
+> **Deprecated:** Use the verb-based `markdown` sub-commands instead:
+> - `--markdown` / `--replace` → `mmk notion page markdown replace <page_id>`
+> - `--append` → `mmk notion page markdown append <page_id>`
 
 ```bash
 mmk notion page update-markdown <page_id> --markdown "# New Content" -o json
