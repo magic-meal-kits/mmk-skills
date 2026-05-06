@@ -70,7 +70,7 @@ Type `/` in Claude Code to see available skills:
 
 ```
 /mmk-notion             — Notion commands overview (links to sub-commands)
-/mmk-notion-page        — Page invite, revoke, publish, config, duplicate, markdown get/create/append/replace/update, transcript, get, update (16 commands)
+/mmk-notion-page        — Page invite, revoke, publish, config, duplicate, markdown (get/create/append/replace/update), transcript, get, update, update-markdown [deprecated] (17 commands)
 /mmk-notion-workspace   — Workspace invite and remove (2 commands)
 /mmk-notion-team        — Team list, invite, remove (3 commands)
 /mmk-notion-subscription — Subscription details (1 command)
@@ -117,8 +117,8 @@ Type `/` in Claude Code to see available skills:
 |-------|------|---------|----------|
 | `mmk-shared` | Background | Auto-loaded | Foundation: auth, flags, errors |
 | **Notion** | | | |
-| `mmk-notion` | Root | `/mmk-notion` | Overview + sub-command links (44 commands total) |
-| `mmk-notion-page` | Sub-command | `/mmk-notion-page` | invite, revoke, publish, unpublish, config, publish-settings, duplicate, list-published, markdown get/create/append/replace/update, transcript, get, update |
+| `mmk-notion` | Root | `/mmk-notion` | Overview + sub-command links (45 commands total) |
+| `mmk-notion-page` | Sub-command | `/mmk-notion-page` | invite, revoke, publish, unpublish, config, publish-settings, duplicate, list-published, markdown (get/create/append/replace/update), transcript, get, update, update-markdown [deprecated] |
 | `mmk-notion-workspace` | Sub-command | `/mmk-notion-workspace` | invite, remove |
 | `mmk-notion-team` | Sub-command | `/mmk-notion-team` | list, invite, remove |
 | `mmk-notion-subscription` | Sub-command | `/mmk-notion-subscription` | subscription |
@@ -167,8 +167,8 @@ Type `/` in Claude Code to see available skills:
 
 ```
 mmk-shared (background)              <- Foundation: auth, flags, errors
-├── mmk-notion (root)                <- Overview + tips (44 commands)
-│   ├── mmk-notion-page              <- 16 page commands
+├── mmk-notion (root)                <- Overview + tips (45 commands)
+│   ├── mmk-notion-page              <- 17 page commands
 │   ├── mmk-notion-workspace         <- 2 workspace commands
 │   ├── mmk-notion-team              <- 3 team commands
 │   ├── mmk-notion-subscription      <- 1 subscription command
