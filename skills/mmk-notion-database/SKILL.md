@@ -1,6 +1,6 @@
 ---
 name: mmk-notion-database
-description: Manage Notion databases — show property schema, query with filters/sorts, trigger AI summary generation, insert/update/upsert/delete records. Triggers on "database schema", "AI summary", "database properties", "detect AI", "ai-summary", "ai-summary-auto", "auto AI summary", "database structure", "query database", "filter", "sort", "database query", "insert records", "update records", "upsert", "delete pages", "bulk insert", "bulk update", "bulk delete".
+description: Manage Notion databases — show property schema, query with filters/sorts, trigger AI summary generation, insert/update/upsert/delete records. Triggers on "database schema", "AI summary", "database properties", "detect AI", "ai-summary", "ai-summary-auto", "auto AI summary", "database structure", "query database", "filter", "sort", "database query", "insert records", "update records", "upsert", "delete pages", "bulk insert", "bulk update", "bulk delete", "check duplicates", "find duplicates", "dedupe records".
 allowed-tools: Bash(mmk *)
 ---
 
@@ -101,6 +101,28 @@ mmk notion database upsert --database-id <db> --lookup Name --update-properties 
 | `--show-schema` | Show database schema and exit |
 | `--icon-emoji` | Emoji icon for new pages |
 | `--template-id` | Template page ID for new pages |
+
+---
+
+## check-duplicates — Check which records already exist in a Notion database
+
+Read-only check that matches each input record against existing database rows by the given lookup properties. Nothing is written. The response includes per-record results plus top-level `unique_records` and `duplicate_records` arrays, so you can pipe the output directly into a downstream `insert` without iterating.
+
+```bash
+mmk notion database check-duplicates --database-id <db> --lookup "Video URL" --data '[{"Video URL":"https://youtu.be/aaa"}]' -o json
+mmk notion database check-duplicates --database-id <db> --lookup Name,Email --file candidates.json -o json
+cat candidates.json | mmk notion database check-duplicates --database-id <db> --lookup "Video URL" -o json
+```
+
+**Required:** a database target (one of `--database-id`, `--data-source-id`, or `--notion-id`), `--lookup` (property names for matching, repeatable or comma-separated), one of `--data`, `--file`, `--set`, or piped stdin
+**Optional:**
+
+| Flag | Description |
+|------|-------------|
+| `--data-source-id` | Notion data source ID (overrides `--database-id`) |
+| `--notion-id` | Notion ID (auto-detect database or data source) |
+
+Sources `--data`, `--file`, `--set`, and stdin are mutually exclusive.
 
 ---
 
