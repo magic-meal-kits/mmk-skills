@@ -106,12 +106,20 @@ mmk notion database upsert --database-id <db> --lookup Name --update-properties 
 
 ## check-duplicates — Check which records already exist in a Notion database
 
-Read-only check that matches each input record against existing database rows by the given lookup properties. Nothing is written. The response includes per-record results plus top-level `unique_records` and `duplicate_records` arrays, so you can pipe the output directly into a downstream `insert` without iterating.
+Read-only check that matches each input record against existing database rows by the given lookup properties. Nothing is written. The response is a wrapper object with per-record `results` plus top-level `unique_records` and `duplicate_records` arrays.
 
 ```bash
 mmk notion database check-duplicates --database-id <db> --lookup "Video URL" --data '[{"Video URL":"https://youtu.be/aaa"}]' -o json
 mmk notion database check-duplicates --database-id <db> --lookup Name,Email --file candidates.json -o json
 cat candidates.json | mmk notion database check-duplicates --database-id <db> --lookup "Video URL" -o json
+```
+
+To insert only the non-duplicate rows, extract the `unique_records` array first — do not pipe the raw wrapper into `insert` (it expects a JSON array of records, not the wrapper object):
+
+```bash
+mmk notion database check-duplicates --database-id <db> --lookup "Video URL" --file candidates.json -o json \
+  | jq '.unique_records' \
+  | mmk notion database insert --database-id <db> -o json
 ```
 
 **Required:** a database target (one of `--database-id`, `--data-source-id`, or `--notion-id`), `--lookup` (property names for matching, repeatable or comma-separated), one of `--data`, `--file`, `--set`, or piped stdin
