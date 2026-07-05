@@ -71,7 +71,7 @@ Top-level commands available via `mmk`:
 - [`mmk paymint`](../mmk-paymint/SKILL.md) — Payment/invoice management (7 commands)
 - [`mmk threads`](../mmk-threads/SKILL.md) — Threads account data: posts, insights, replies (3 commands)
 - [`mmk youtube`](../mmk-youtube/SKILL.md) — YouTube tools: transcript, metadata, video type (3 commands)
-- [`mmk plaud`](../mmk-plaud/SKILL.md) — Plaud voice recorder (read-only): file list/transcript/summary/tabs/trash, search, admin passthroughs (28 commands)
+- [`mmk plaud`](../mmk-plaud/SKILL.md) — Plaud voice recorder: file list/transcript/summary/tabs, search, admin passthroughs; write ops rename/organize/trash (trash soft-deletes notes) (28 commands)
 - `mmk auth` — Authentication
 - `mmk config` — CLI configuration
 - `mmk doctor` — Check CLI setup and server connectivity
