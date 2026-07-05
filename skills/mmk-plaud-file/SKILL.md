@@ -1,6 +1,6 @@
 ---
 name: mmk-plaud-file
-description: Manage Plaud recordings — list, get detail, audio URL, download, rename, organize into folders, fetch transcript/summary, trigger auto transcript+summary. Triggers on "plaud file", "plaud recordings", "list plaud files", "plaud transcript", "plaud summary", "plaud audio url", "download plaud audio", "download recording", "rename plaud recording", "organize plaud", "plaud transsumm", "auto transcript summary".
+description: Manage Plaud recordings — list, get detail, audio URL, download, rename, organize into folders, fetch transcript/summary, list/get content tabs, trigger auto transcript+summary. Triggers on "plaud file", "plaud recordings", "list plaud files", "plaud transcript", "plaud summary", "plaud audio url", "download plaud audio", "download recording", "rename plaud recording", "organize plaud", "plaud transsumm", "auto transcript summary", "plaud tabs", "plaud content tab", "plaud key points", "plaud outline", "plaud mind map".
 allowed-tools: Bash(mmk *)
 ---
 
@@ -111,6 +111,39 @@ mmk plaud file summary <file_id> -o json
 **Required:** `<file_id>` (positional)
 
 Returns a Markdown summary as a string in the JSON payload.
+
+---
+
+## tabs — List a note's content tabs
+
+```bash
+mmk plaud file tabs <file_id> -o json
+```
+
+**Required:** `<file_id>` (positional)
+
+A Plaud note can carry several rendered views beyond the default summary — e.g. "Key Points", "Outline", "Mind Map", recording highlights, the raw transcript. Each row shows the tab type, display name, stable template selector, content format, and whether it's ready, plus the per-note tab ID used by `tab --tab-id`.
+
+---
+
+## tab — Get one content tab
+
+```bash
+mmk plaud file tab <file_id> --template SUMMARY -o json
+mmk plaud file tab <file_id> --template "Key Points" -o json
+mmk plaud file tab <file_id> --tab-id source_outline:... -o json
+```
+
+**Required:** `<file_id>` (positional), one of `--template` or `--tab-id`
+
+**Optional:**
+
+| Flag | Description |
+|------|-------------|
+| `--template` | Stable template selector (e.g. `SUMMARY`, `Key Points`, `Mind Map`) — same across all notes |
+| `--tab-id` | Per-note tab id from `mmk plaud file tabs <file_id>` |
+
+Markdown tabs print as text; structured tabs (transcript, outline) print as JSON. Use `-o json` for the full envelope (`tab_id`, `tab_name`, `format`, `content`).
 
 ---
 
