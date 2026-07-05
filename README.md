@@ -97,8 +97,8 @@ Type `/` in Claude Code to see available skills:
 /mmk-youtube-metadata   — Video metadata
 /mmk-youtube-videotype  — Video vs Short
 /mmk-youtube-transcript — Video transcript
-/mmk-plaud              — Plaud overview + credential overrides (25 commands)
-/mmk-plaud-file         — File list/get, audio URL, download, transcript, summary, transsumm, rename, organize (9 commands)
+/mmk-plaud              — Plaud overview + credential overrides (27 commands)
+/mmk-plaud-file         — File list/get, audio URL, download, transcript, summary, tab/tabs, transsumm, rename, organize (11 commands)
 /mmk-plaud-search       — Search transcripts and filenames (1 command)
 /mmk-plaud-user         — Plaud user profile (1 command)
 /mmk-plaud-doctor       — Connectivity check (1 command)
@@ -149,8 +149,8 @@ Type `/` in Claude Code to see available skills:
 | `mmk-youtube-videotype` | Sub-command | `/mmk-youtube-videotype` | videotype |
 | `mmk-youtube-transcript` | Sub-command | `/mmk-youtube-transcript` | transcript |
 | **Plaud** | | | |
-| `mmk-plaud` | Root | `/mmk-plaud` | Overview + credential overrides (25 commands total) |
-| `mmk-plaud-file` | Sub-command | `/mmk-plaud-file` | list, get, audio-url, download, transcript, summary, transsumm, rename, organize |
+| `mmk-plaud` | Root | `/mmk-plaud` | Overview + credential overrides (27 commands total) |
+| `mmk-plaud-file` | Sub-command | `/mmk-plaud-file` | list, get, audio-url, download, transcript, summary, tab, tabs, transsumm, rename, organize |
 | `mmk-plaud-search` | Sub-command | `/mmk-plaud-search` | search |
 | `mmk-plaud-user` | Sub-command | `/mmk-plaud-user` | me |
 | `mmk-plaud-doctor` | Sub-command | `/mmk-plaud-doctor` | doctor |
@@ -195,8 +195,8 @@ mmk-shared (background)              <- Foundation: auth, flags, errors
 │   ├── mmk-youtube-metadata         <- Video metadata
 │   ├── mmk-youtube-videotype        <- Video vs Short
 │   └── mmk-youtube-transcript       <- Video transcript
-├── mmk-plaud (root)                 <- Plaud overview + credential overrides (25 commands)
-│   ├── mmk-plaud-file               <- 9 file commands (list, get, audio-url, download, transcript, summary, transsumm, rename, organize)
+├── mmk-plaud (root)                 <- Plaud overview + credential overrides (27 commands)
+│   ├── mmk-plaud-file               <- 11 file commands (list, get, audio-url, download, transcript, summary, tab, tabs, transsumm, rename, organize)
 │   ├── mmk-plaud-search             <- Search transcripts and filenames
 │   ├── mmk-plaud-user               <- Plaud user profile
 │   ├── mmk-plaud-doctor             <- Connectivity check (token + user + devices)
