@@ -210,6 +210,19 @@ Prefer `organize` over `mmk plaud admin tag …` primitives — it finds-or-crea
 
 ---
 
+## trash — Move one or more notes to trash (soft-delete, recoverable)
+
+```bash
+mmk plaud file trash --files 9eb5d6e8b... -o json
+mmk plaud file trash --files f1,f2,f3 -o json
+```
+
+**Required:** `--files` (comma-separated file IDs to move to trash)
+
+Soft-delete: notes are moved to trash and remain recoverable. Trashed notes can still be listed with `mmk plaud file list --trash trash` (or `--trash all`).
+
+---
+
 ## See Also
 
 - [mmk-shared](../mmk-shared/SKILL.md) — Auth, global flags, error handling
